@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "xU7OjywnD2WC2tXQPg8qfk4tXiJ3ZtN5toIRgcXvFmLJF4izOAPUv0WwV5yB/461R4q6H7ai2TRk7EuOpaKm7Q==",
+  "success": true,
+  "projectFilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Client.csproj",
+  "expectedPackageFiles": [
+    "/home/ebarcelona/.nuget/packages/microsoft.extensions.logging.abstractions/3.1.7/microsoft.extensions.logging.abstractions.3.1.7.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/novell.directory.ldap.netstandard/3.6.0/novell.directory.ldap.netstandard.3.6.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/npgsql/6.0.4/npgsql.6.0.4.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.diagnostics.diagnosticsource/6.0.0/system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

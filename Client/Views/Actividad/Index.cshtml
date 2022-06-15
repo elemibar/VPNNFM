@@ -1,0 +1,370 @@
+@model List<VPN>
+@using Dominio.EntidadesNegocio;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Actividades</h1>
+
+<!-- /////////////////////// BUSQUEDA //////////////////////////////////// -->
+
+<div class="row">
+    <div class="col-md">
+        <form class="form-row" id="frmBusc">
+
+            <div class="form-group col-md-1">
+                <input type="button" id="addIPToList" value="+"
+                    class=" form-control mt-3 btn btn-outline-primary btn-circle"
+                    onclick="javascript:addIPToListf(); return false;">
+            </div>
+
+            <div class="form-group col-md">
+                <label class="col-sm" for="txtIp">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">IP</span>
+                </label>
+                <div class="inline">
+                    <input class="form-control mt-n3" id="txtIp" type="text" name="Change" placeholder="IP">
+                </div>
+            </div>
+
+            <div class="form-group col-md">
+                <label class="col-sm" for="dateAlta">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Inicio</span>
+                </label>
+                <input class="form-control mt-n3" id="dtInicio" type="date" name="Inicio" />
+            </div>
+
+            <div class="form-group col-md">
+                <label class="col-sm" for="dateBaja">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Fin</span>
+                </label>
+                <input class="form-control mt-n3" id="dtFin" type="date" name="Fin" />
+            </div>
+
+            <div class="form-group col-md">
+                <label for="Tipo" class="col-sm">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Tipo</span>
+                </label>
+                <select class="form-control mt-n3" disabled name="Tipo" id="selTipo">
+                    @foreach (VPN.EnumTipo tip in Enum.GetValues(typeof(VPN.EnumTipo)))
+                    {
+                        @if (tip.GetHashCode() == 1)
+                        {
+                            <option value="@tip" selected>@tip</option>
+                        }
+                        else
+                        {
+                            <option value="@tip">@tip</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group col-md">
+                <input class="btn-outline-primary form-control mt-3" id="btn_buscar" type="submit" value="Buscar">
+            </div>
+
+        </form>
+    </div>
+</div>
+<!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
+<div class="row">
+    <table class="table table-striped" id="tabVpns">
+        <tbody>
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- //////////////// LISTADO DE ACTIVIDADES ///////////////////////////// -->
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                IP
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Dependencia
+            </th>
+            <th>
+                Direccion
+            </th>
+            <th>
+                Gabinete
+            </th>
+            <th>
+                Alta
+            </th>
+            <th>
+                Baja
+            </th>
+            <th>
+                Tipo
+            </th>
+            <!-------------------------------------------------------------------->
+            <th>
+                Inicio
+            </th>
+            <th>
+                Fin
+            </th>
+            <th>
+                Segundos
+            </th>
+            <th>
+                Destino
+            </th>
+            <th>
+                Protocolo
+            </th>
+            <th>
+                Puerto
+            </th>
+            <th>
+                Bytesh
+            </th>
+            <th>
+                Bytes
+            </th>
+            <!--------------------------------------------------------------->
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            @foreach (var act in item.Actividades)
+            {
+                <tr>
+
+                    <td>
+                        @item.Ip.ToString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dependencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Direccion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gabinete)
+                    </td>
+                    <td>
+                        @item.Alta.ToString()
+                    </td>
+                    <td>
+                        @item.Baja.ToString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => act.Inicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => act.Fin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => act.Segundos)
+                    </td>
+                    <td>
+                        @act.Destino.ToString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => act.Protocolo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => act.Puerto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => act.Bytesh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => act.Bytes)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+<p>@ViewBag.mensaje </p>
+
+
+<!-- //////////////// SCRIPTS PARA BUSQUEDA ///////////////////////////// -->
+
+<script type="text/javascript">
+
+    function addIPToListf()
+    {
+        let newIp = document.querySelector("#txtIp").value;
+        let newInicio = document.querySelector("#dtInicio").value;
+        let newFin = document.querySelector("#dtFin").value;
+        let newTipo = document.querySelector("#selTipo").value;
+
+        if (newIp != null && newIp != "" && newIp.length > 0)
+        {
+
+            let newBtn = '<button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(this); return false;">-</button>';
+                        
+            let newHtml = `<tr><td>` + newBtn + "</td><td>" + newIp + "</td><td>" + newInicio + "</td><td>" + newFin + "</td><td>" + newTipo + "</td><td>" + "" + "</td></tr>";
+
+            document.querySelector("#tabVpns tbody").innerHTML += newHtml;
+
+            document.querySelector("#txtIp").value = "";
+            document.querySelector("#dtInicio").value = "";
+            document.querySelector("#dtFin").value = "";
+
+        }
+
+    }
+
+    function removeIPFromListf(tabIpRow) 
+    {
+               
+        tabIpRow.parentNode.parentNode.remove();
+
+    }
+
+    document.querySelector('#frmBusc').addEventListener("submit", sendToControl);
+
+    function sendToControl(event)
+    {
+       
+        event.preventDefault();
+        event.stopPropagation();
+
+        var JsonString = "";
+        
+        var formJson = returnFormAsJson();
+        var tableJson = returnVPNsTableAsJson();
+
+        if((formJson != null && formJson != "") || (tableJson != null && tableJson != ""))
+        {
+            JsonString = `[
+            `;
+
+            if(formJson != "")JsonString+=formJson;
+
+            if(formJson != null && formJson != "" && tableJson != null && tableJson != "")
+            {
+                JsonString+=`,
+                `;
+            }
+
+            if(tableJson != null && tableJson != "")JsonString+=tableJson;
+            
+
+            JsonString += `
+                ]` 
+        }
+
+        sendToControlAjax(JsonString);
+
+    }
+
+    function returnFormAsJson()
+    {
+
+        let newIp = document.querySelector("#txtIp").value;
+        let newInicio = document.querySelector("#dtInicio").value;
+        let newFin = document.querySelector("#dtFin").value;
+        let newTipo = document.querySelector("#selTipo").value;
+        var newVPN = "";
+
+        if((newIp != "") || (newInicio != "") || (newFin != ""))
+        {
+            newVPN = 
+                `{
+                    "ip": "${newIp}",
+                    "inicio": "${newInicio}",
+                    "fin": "${newFin}",
+                    "tipo": 0
+                }`;
+        }
+        else{
+            newVPN = "";
+        }
+
+        return newVPN;
+
+    }
+
+    function returnVPNsTableAsJson()
+    {
+
+        var tablaRows = document.querySelectorAll("#tabVpns tbody tr");
+        let newTabIp = "";
+        let newTabInicio = "";
+        let newTabFin = "";
+        let newTabTipo = "";
+        var vpnListJson = "";
+
+        if(tablaRows.length > 1)
+        {
+
+            for (let i = 1; i < tablaRows.length; i++) //Empieza en 1 porque hay una row vacía al principio de la tabla
+            {
+                let newTabIp = tablaRows[i].querySelectorAll("td")[1].innerHTML;
+                
+                let newTabInicio = tablaRows[i].querySelectorAll("td")[2].innerHTML;
+                
+                let newTabFin = tablaRows[i].querySelectorAll("td")[3].innerHTML;
+                
+                let newTabTipo = tablaRows[i].querySelectorAll("td")[4].innerHTML;
+                
+
+                vpnListJson += 
+                `{
+                    "ip": "${newTabIp}",
+                    "inicio": "${newTabInicio}",
+                    "fin": "${newTabFin}",
+                    "tipo": 0
+                }`;
+                if(i != tablaRows.length - 1)
+                    vpnListJson += `,
+                    `;
+            }
+        }
+        else{
+            vpnListJson = ""; 
+        }
+
+        return vpnListJson;
+    }
+
+    function sendToControlAjax(data)
+    {
+        
+        var dataType = 'application/json; charset=utf-8';
+
+        $.ajax({
+            type: 'POST',
+            url: "../Actividad/Index",
+            dataType: 'json',
+            contentType: dataType,
+            data: data,
+            success: function ()
+            {
+                console.log("Success");
+            }
+        });
+
+    }
+
+
+</script>

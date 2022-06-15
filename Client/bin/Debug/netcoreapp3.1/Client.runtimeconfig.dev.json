@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/ebarcelona/.dotnet/store/|arch|/|tfm|",
+      "/home/ebarcelona/.nuget/packages"
+    ]
+  }
+}

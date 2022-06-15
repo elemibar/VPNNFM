@@ -1,0 +1,186 @@
+@model Client.Models.ViewModelActividad
+@using Dominio.EntidadesNegocio;
+
+
+@{int i = 0;}
+<div class="row">
+    <div class="col-md">
+        <form class="form-row" enctype="multipart/form-data" asp-action="Index" method="post">
+
+            <div class="form-group col-md">
+                <label class="col-sm" for="txtIp">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">IP</span>
+                </label>
+                <div class="inline">
+                <!--<input class="form-control mt-n3" id="txtIp" type="text" name="Change" placeholder="IP"> <!--value="@Model.Ips"-->
+                @Html.TextBoxFor(c => c.Change , htmlAttributes : new { @id = "txtIp", @class="btn btn-outline-primary btn-circle btn-sm"})
+                <input type="button" id="addIPToList" value="+" class="btn btn-outline-primary btn-circle btn-sm" onclick="javascript:addIPToListf(); return false;">  <!-- onclick="location.href='@Url.Action("RenderSearch","Actividad", Model)'">-->
+                </div>
+            </div>
+
+            <div class="form-group col-md">
+                <label class="col-sm" for="txtIp">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">IPs</span>
+                </label>
+                <!--<input type="TextBox" id="txtbListIPs" class="form-control mt-n3">-->
+                <div class="panel panel-default border mt-n3">
+                    <table id="tableIPs" class="panel-body" width="100%">
+                    @{
+                        foreach (var item in Model.Ips.ToList())
+                        {
+                            <tr>
+                                <td>
+                                    @Html.TextBoxFor(o => o.Ips[i], htmlAttributes : new { @class = "ipSTd"})
+                                </td>
+                                <td>
+                                    <button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm" onclick="javascript:removeIPFromListf(); return false;">-</button>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                    </table>
+
+                </div>
+            </div>
+
+
+            <div class="form-group col-md">
+                <label class="col-sm" for="dateAlta">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Inicio</span>
+                </label>
+                <!--<input class="form-control mt-n3" id="dateAlta" type="date" name="Inicio" value="@Model.Inicio"/>-->
+                @Html.EditorFor(i => i.Inicio, new { @class = "form-control mt-n3"})
+            </div>
+
+            <div class="form-group col-md">
+                <label class="col-sm" for="dateBaja">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Fin</span>
+                </label>
+                <!-- <input class="form-control mt-n3" id="dateBaja" type="date" name="Fin" value="@Model.Fin"/> -->
+                @Html.EditorFor(i => i.Fin, new { @class = "form-control mt-n3"})
+            </div>
+
+            <div class="form-group col-md">
+                <label for="Tipo" class="col-sm">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Tipo</span>
+                </label>
+                    <select class="form-control mt-n3" disabled name="Tipo">
+                        @foreach (VPN.EnumTipo tip in Enum.GetValues(typeof(VPN.EnumTipo)))
+                        {
+                            @if(tip.GetHashCode() == 1)
+                            {
+                                <option value="@tip" selected>@tip</option>
+                            }
+                            else
+                            {
+                                <option value="@tip">@tip</option>
+                            }
+                        }
+                    </select>
+            </div>
+
+            <div class="form-group col-md">
+                <input class="btn-outline-primary form-control mt-3" id="btn_buscar" type="submit" value="Buscar">
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+function addIPToListf()
+{
+    let newIp = document.querySelector("#txtIp").value;
+
+
+    if( newIp != null && newIp != "" && newIp.length >0)
+    {
+        console.log("Bien");
+        
+        let newBtn = '<button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(@i); return false;">-</button>';
+        console.log(newBtn);
+
+        let newHtml = "<tr><td>" + newIp + "</td><td>" + newBtn + "</td></tr>";
+        console.log(newHtml);
+    
+        document.querySelector("#tableIPs").innerHTML += newHtml;
+
+    
+        @{i++;}
+
+        RequestChangeVisibilityAjaxCall();
+    }
+
+}
+
+function removeIPFromListf(){}
+
+function RequestChangeVisibilityAjaxCall() { 
+        /*var IPs = new Array();
+        var miChange = document.querySelector("#txtIp").value;
+        var IPsTDs = document.querySelectorAll(".ipSTd");
+        console.log("IPsTDs: " + IPsTDs);
+        if(IPsTDs != null && IPsTDs.length > 0)
+        {
+            for(let i = 0; i < IPsTDs.length; i++)
+            {
+                IPs.push(`Ips[${i}] : '${IPsTDs[i].value}'`);
+                console.log(`Ips[${i}] : '${IPsTDs[i].value}'`);
+            }
+        }*/
+
+        var IPs = new Array();
+        $("#tableIPs TR").each(function(){
+            var row = $(this);
+            //IPs.push(row.find("TD").eq(0).html().value);
+            //IPs.push("row.find("TD").eq(0).html()");
+        });
+
+        //console.log("TablaIPS: " + TabIPs);
+/*
+{"vpNs":[],"ips":["0.0.0.0"],"inicio":"0001-01-01T00:00:00","fin":"0001-01-01T00:00:00","tipo":0,"change":null}
+        var vma = JSON.stringify(
+            {
+                VPN: {Ip: '', Usuario: '', Nombre: '', Dependencia: '', Direccion: '', Gabinete: '', Alta: '', Baja: '', Tipo: '', Actividades: {}},
+                IPs:{}, 
+                Inicio: '',
+                Fin: '',
+                Tipo: '',
+                Change: miChange
+                });
+*/
+
+//{vma:{"vpNs":[],"ips":[],"inicio":"0001-01-01T00:00:00","fin":"0001-01-01T00:00:00","tipo":0,"change":"HOLA"}},
+
+        console.log("IPs: " + IPs);
+        console.log("IPs: " + JSON.stringify(IPs));
+
+        var data = {
+        "vpNs":[],
+        "ips":[],
+        "inicio":"0001-01-01T00:00:00",
+        "fin":"0001-01-01T00:00:00",
+        "tipo":0,
+        "change":"4.4.4.4"
+        }
+        var dataType = 'application/json; charset=utf-8';
+
+        $.ajax({
+            type: 'POST',
+            url: "../Actividad/RenderSearch",
+            dataType: 'json',
+            contentType: dataType,
+            data: JSON.stringify(data),
+            success: function (data) {
+                //$('#DepartmentManagement').html(data);
+                console.log("Success");
+            }
+        });
+    }
+
+
+</script>
