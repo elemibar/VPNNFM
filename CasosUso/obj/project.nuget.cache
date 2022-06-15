@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "2JnI6d/XAXVO5uMyktqOeck7FnADY7vrUqWnLufbVcrucjfYZKmiv6s+5u3LfFqJwBUU+c9sXXa5GzPz/9BQfQ==",
+  "success": true,
+  "projectFilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/CasosUso.csproj",
+  "expectedPackageFiles": [
+    "/home/ebarcelona/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

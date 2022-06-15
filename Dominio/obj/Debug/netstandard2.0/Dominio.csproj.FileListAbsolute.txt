@@ -1,0 +1,9 @@
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/bin/Debug/netstandard2.0/Dominio.deps.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/bin/Debug/netstandard2.0/Dominio.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/bin/Debug/netstandard2.0/Dominio.pdb
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/obj/Debug/netstandard2.0/Dominio.csprojAssemblyReference.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/obj/Debug/netstandard2.0/Dominio.AssemblyInfoInputs.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/obj/Debug/netstandard2.0/Dominio.AssemblyInfo.cs
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/obj/Debug/netstandard2.0/Dominio.csproj.CoreCompileInputs.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/obj/Debug/netstandard2.0/Dominio.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Dominio/obj/Debug/netstandard2.0/Dominio.pdb

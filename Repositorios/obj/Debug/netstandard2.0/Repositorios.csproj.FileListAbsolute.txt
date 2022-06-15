@@ -1,0 +1,12 @@
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/obj/Debug/netstandard2.0/Repositorios.csprojAssemblyReference.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/obj/Debug/netstandard2.0/Repositorios.AssemblyInfoInputs.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/obj/Debug/netstandard2.0/Repositorios.AssemblyInfo.cs
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/obj/Debug/netstandard2.0/Repositorios.csproj.CoreCompileInputs.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/bin/Debug/netstandard2.0/Repositorios.deps.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/bin/Debug/netstandard2.0/Repositorios.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/bin/Debug/netstandard2.0/Repositorios.pdb
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/bin/Debug/netstandard2.0/Dominio.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/bin/Debug/netstandard2.0/Dominio.pdb
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/obj/Debug/netstandard2.0/Repositorios.csproj.CopyComplete
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/obj/Debug/netstandard2.0/Repositorios.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/obj/Debug/netstandard2.0/Repositorios.pdb

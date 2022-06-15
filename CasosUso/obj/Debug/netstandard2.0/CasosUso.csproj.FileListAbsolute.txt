@@ -1,0 +1,12 @@
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/obj/Debug/netstandard2.0/CasosUso.csprojAssemblyReference.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/obj/Debug/netstandard2.0/CasosUso.AssemblyInfoInputs.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/obj/Debug/netstandard2.0/CasosUso.AssemblyInfo.cs
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/obj/Debug/netstandard2.0/CasosUso.csproj.CoreCompileInputs.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/bin/Debug/netstandard2.0/CasosUso.deps.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/bin/Debug/netstandard2.0/CasosUso.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/bin/Debug/netstandard2.0/CasosUso.pdb
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/bin/Debug/netstandard2.0/Dominio.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/bin/Debug/netstandard2.0/Dominio.pdb
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/obj/Debug/netstandard2.0/CasosUso.csproj.CopyComplete
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/obj/Debug/netstandard2.0/CasosUso.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/obj/Debug/netstandard2.0/CasosUso.pdb
