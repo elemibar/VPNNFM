@@ -1,5 +1,7 @@
-@model List<VPN>
+@model VMActividad
 @using Dominio.EntidadesNegocio;
+@using Client.Models;
+
 
 @{
     ViewData["Title"] = "Index";
@@ -11,7 +13,7 @@
 
 <div class="row">
     <div class="col-md">
-        <form class="form-row" id="frmBusc">
+        <form class="form-row" id="frmBusc" enctype="multipart/form-data" method="post" asp-action="Index">
 
             <div class="form-group col-md-1">
                 <input type="button" id="addIPToList" value="+"
@@ -65,306 +67,333 @@
                 <input class="btn-outline-primary form-control mt-3" id="btn_buscar" type="submit" value="Buscar">
             </div>
 
-        </form>
-    </div>
-</div>
-<!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
-<div class="row">
-    <table class="table table-striped" id="tabVpns">
-        <tbody>
-            <tr>
+            <!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
+            <div class="row">
+                <div class="col-md">
+                    <form class="form-row" enctype="multipart/form-data" method="post" asp-action="Index">
 
-            </tr>
-        </tbody>
-    </table>
-</div>
+                        <div class="form-group row">
+                            <table class="table table-striped" id="tabVpns">
+                                <tbody>
+                                    <tr>
 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-<!-- //////////////// LISTADO DE ACTIVIDADES ///////////////////////////// -->
-
-<table class="table">
-    <thead>
-        <tr>
-
-            <th>
-                IP
-            </th>
-            <th>
-                Nombre
-            </th>
-            <th>
-                Dependencia
-            </th>
-            <th>
-                Direccion
-            </th>
-            <th>
-                Gabinete
-            </th>
-            <th>
-                Alta
-            </th>
-            <th>
-                Baja
-            </th>
-            <th>
-                Tipo
-            </th>
-            <!-------------------------------------------------------------------->
-            <th>
-                Inicio
-            </th>
-            <th>
-                Fin
-            </th>
-            <th>
-                Segundos
-            </th>
-            <th>
-                Destino
-            </th>
-            <th>
-                Protocolo
-            </th>
-            <th>
-                Puerto
-            </th>
-            <th>
-                Bytesh
-            </th>
-            <th>
-                Bytes
-            </th>
-            <!--------------------------------------------------------------->
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            @foreach (var act in item.Actividades)
-            {
-                <tr>
-
-                    <td>
-                        @item.Ip.ToString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dependencia)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Direccion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Gabinete)
-                    </td>
-                    <td>
-                        @item.Alta.ToString()
-                    </td>
-                    <td>
-                        @item.Baja.ToString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Inicio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Fin)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Segundos)
-                    </td>
-                    <td>
-                        @act.Destino.ToString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Protocolo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Puerto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Bytesh)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Bytes)
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+                    </form>
+                </div>
+            </div>
 
 
-<p>@ViewBag.mensaje </p>
+            <!-- //////////////// LISTADO DE ACTIVIDADES ///////////////////////////// -->
+
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th>
+                            IP
+                        </th>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Dependencia
+                        </th>
+                        <th>
+                            Direccion
+                        </th>
+                        <th>
+                            Gabinete
+                        </th>
+                        <th>
+                            Alta
+                        </th>
+                        <th>
+                            Baja
+                        </th>
+                        <th>
+                            Tipo
+                        </th>
+                        <!-------------------------------------------------------------------->
+                        <th>
+                            Inicio
+                        </th>
+                        <th>
+                            Fin
+                        </th>
+                        <th>
+                            Segundos
+                        </th>
+                        <th>
+                            Destino
+                        </th>
+                        <th>
+                            Protocolo
+                        </th>
+                        <th>
+                            Puerto
+                        </th>
+                        <th>
+                            Bytesh
+                        </th>
+                        <th>
+                            Bytes
+                        </th>
+                        <!--------------------------------------------------------------->
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.VPNs)
+                    {
+                        @foreach (var act in item.Actividades)
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.Ip.ToString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Dependencia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direccion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gabinete)
+                                </td>
+                                <td>
+                                    @item.Alta.ToString()
+                                </td>
+                                <td>
+                                    @item.Baja.ToString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tipo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Inicio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Fin)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Segundos)
+                                </td>
+                                <td>
+                                    @act.Destino.ToString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Protocolo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Puerto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Bytesh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Bytes)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
 
 
-<!-- //////////////// SCRIPTS PARA BUSQUEDA ///////////////////////////// -->
+            <p>@ViewBag.mensaje </p>
 
-<script type="text/javascript">
 
-    function addIPToListf()
-    {
-        let newIp = document.querySelector("#txtIp").value;
-        let newInicio = document.querySelector("#dtInicio").value;
-        let newFin = document.querySelector("#dtFin").value;
-        let newTipo = document.querySelector("#selTipo").value;
+            <!-- //////////////// SCRIPTS PARA BUSQUEDA ///////////////////////////// -->
 
-        if (newIp != null && newIp != "" && newIp.length > 0)
-        {
+            <script type="text/javascript">
+                let vip = 0;
+                function addIPToListf()
+                {
+                    let newIp = document.querySelector("#txtIp").value;
+                    let newInicio = document.querySelector("#dtInicio").value;
+                    let newFin = document.querySelector("#dtFin").value;
+                    let newTipo = document.querySelector("#selTipo").value;
 
-            let newBtn = '<button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(this); return false;">-</button>';
-                        
-            let newHtml = `<tr><td>` + newBtn + "</td><td>" + newIp + "</td><td>" + newInicio + "</td><td>" + newFin + "</td><td>" + newTipo + "</td><td>" + "" + "</td></tr>";
+                    if (newIp != null && newIp != "" && newIp.length > 0)
+                    {
 
-            document.querySelector("#tabVpns tbody").innerHTML += newHtml;
+                        let newBtn = `<button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(this); return false;">-</button>`;
 
-            document.querySelector("#txtIp").value = "";
-            document.querySelector("#dtInicio").value = "";
-            document.querySelector("#dtFin").value = "";
+                        let newHtml = `<tr><td>`
+                            + newBtn
+                            + `</td><td>`
+                            + newIp
+                            + `<input type="hidden" name="PVPNs[${vip}].Ip value=${newIp}">`
+                            + `</td><td>`
+                            + newInicio
+                            + `<input type="hidden" name="PVPNs[${vip}].Alta value=${newInicio}">`
+                            + `</td><td>`
+                            + newFin
+                            + `<input type="hidden" name="PVPNs[${vip}].Baja value=${newFin}">`
+                            + `</td><td>`
+                            + newTipo
+                            + `<input type="hidden" name="PVPNs[${vip}].Tipo value=${newTipo}">`
+                            + "</td><td>" + "" + "</td></tr>";
 
-        }
+                        vip++;
 
-    }
+                        document.querySelector("#tabVpns tbody").innerHTML += newHtml;
 
-    function removeIPFromListf(tabIpRow) 
-    {
-               
-        tabIpRow.parentNode.parentNode.remove();
+                        document.querySelector("#txtIp").value = "";
+                        document.querySelector("#dtInicio").value = "";
+                        document.querySelector("#dtFin").value = "";
 
-    }
+                    }
 
-    document.querySelector('#frmBusc').addEventListener("submit", sendToControl);
+                }
 
-    function sendToControl(event)
-    {
-       
-        event.preventDefault();
-        event.stopPropagation();
+                function removeIPFromListf(tabIpRow) 
+                {
 
-        var JsonString = "";
-        
-        var formJson = returnFormAsJson();
-        var tableJson = returnVPNsTableAsJson();
+                    tabIpRow.parentNode.parentNode.remove();
 
-        if((formJson != null && formJson != "") || (tableJson != null && tableJson != ""))
-        {
-            JsonString = `[
+                }
+
+                //document.querySelector('#frmBusc').addEventListener("submit", sendToControl);
+
+                function sendToControl(event)
+                {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    var JsonString = "";
+
+                    var formJson = returnFormAsJson();
+                    var tableJson = returnVPNsTableAsJson();
+
+                    if ((formJson != null && formJson != "") || (tableJson != null && tableJson != ""))
+                    {
+                        JsonString = `[
             `;
 
-            if(formJson != "")JsonString+=formJson;
+                        if (formJson != "") JsonString += formJson;
 
-            if(formJson != null && formJson != "" && tableJson != null && tableJson != "")
-            {
-                JsonString+=`,
+                        if (formJson != null && formJson != "" && tableJson != null && tableJson != "")
+                        {
+                            JsonString += `,
                 `;
-            }
+                        }
 
-            if(tableJson != null && tableJson != "")JsonString+=tableJson;
-            
+                        if (tableJson != null && tableJson != "") JsonString += tableJson;
 
-            JsonString += `
-                ]` 
-        }
 
-        sendToControlAjax(JsonString);
+                        JsonString += `
+                ]`
+                    }
 
-    }
+                    sendToControlAjax(JsonString);
 
-    function returnFormAsJson()
-    {
+                }
 
-        let newIp = document.querySelector("#txtIp").value;
-        let newInicio = document.querySelector("#dtInicio").value;
-        let newFin = document.querySelector("#dtFin").value;
-        let newTipo = document.querySelector("#selTipo").value;
-        var newVPN = "";
+                function returnFormAsJson()
+                {
 
-        if((newIp != "") || (newInicio != "") || (newFin != ""))
-        {
-            newVPN = 
-                `{
+                    let newIp = document.querySelector("#txtIp").value;
+                    let newInicio = document.querySelector("#dtInicio").value;
+                    let newFin = document.querySelector("#dtFin").value;
+                    let newTipo = document.querySelector("#selTipo").value;
+                    var newVPN = "";
+
+                    if ((newIp != "") || (newInicio != "") || (newFin != ""))
+                    {
+                        newVPN =
+                            `{
                     "ip": "${newIp}",
                     "inicio": "${newInicio}",
                     "fin": "${newFin}",
                     "tipo": 0
                 }`;
-        }
-        else{
-            newVPN = "";
-        }
+                    }
+                    else
+                    {
+                        newVPN = "";
+                    }
 
-        return newVPN;
+                    return newVPN;
 
-    }
+                }
 
-    function returnVPNsTableAsJson()
-    {
+                function returnVPNsTableAsJson()
+                {
 
-        var tablaRows = document.querySelectorAll("#tabVpns tbody tr");
-        let newTabIp = "";
-        let newTabInicio = "";
-        let newTabFin = "";
-        let newTabTipo = "";
-        var vpnListJson = "";
+                    var tablaRows = document.querySelectorAll("#tabVpns tbody tr");
+                    let newTabIp = "";
+                    let newTabInicio = "";
+                    let newTabFin = "";
+                    let newTabTipo = "";
+                    var vpnListJson = "";
 
-        if(tablaRows.length > 1)
-        {
+                    if (tablaRows.length > 1)
+                    {
 
-            for (let i = 1; i < tablaRows.length; i++) //Empieza en 1 porque hay una row vacía al principio de la tabla
-            {
-                let newTabIp = tablaRows[i].querySelectorAll("td")[1].innerHTML;
-                
-                let newTabInicio = tablaRows[i].querySelectorAll("td")[2].innerHTML;
-                
-                let newTabFin = tablaRows[i].querySelectorAll("td")[3].innerHTML;
-                
-                let newTabTipo = tablaRows[i].querySelectorAll("td")[4].innerHTML;
-                
+                        for (let i = 1; i < tablaRows.length; i++) //Empieza en 1 porque hay una row vacía al principio de la tabla
+                        {
+                            let newTabIp = tablaRows[i].querySelectorAll("td")[1].innerHTML;
 
-                vpnListJson += 
-                `{
+                            let newTabInicio = tablaRows[i].querySelectorAll("td")[2].innerHTML;
+
+                            let newTabFin = tablaRows[i].querySelectorAll("td")[3].innerHTML;
+
+                            let newTabTipo = tablaRows[i].querySelectorAll("td")[4].innerHTML;
+
+
+                            vpnListJson +=
+                                `{
                     "ip": "${newTabIp}",
                     "inicio": "${newTabInicio}",
                     "fin": "${newTabFin}",
                     "tipo": 0
                 }`;
-                if(i != tablaRows.length - 1)
-                    vpnListJson += `,
+                            if (i != tablaRows.length - 1)
+                                vpnListJson += `,
                     `;
-            }
-        }
-        else{
-            vpnListJson = ""; 
-        }
+                        }
+                    }
+                    else
+                    {
+                        vpnListJson = "";
+                    }
 
-        return vpnListJson;
-    }
+                    return vpnListJson;
+                }
 
-    function sendToControlAjax(data)
-    {
-        
-        var dataType = 'application/json; charset=utf-8';
+                function sendToControlAjax(data)
+                {
 
-        $.ajax({
-            type: 'POST',
-            url: "../Actividad/Index",
-            dataType: 'json',
-            contentType: dataType,
-            data: data,
-            success: function ()
-            {
-                console.log("Success");
-            }
-        });
+                    var dataType = 'application/json; charset=utf-8';
 
-    }
+                    $.ajax({
+                        type: 'POST',
+                        url: "../Actividad/Index",
+                        dataType: 'json',
+                        contentType: dataType,
+                        data: data,
+                        success: function ()
+                        {
+                            console.log("Success");
+                        },
+                        error: function ()
+                        {
+                            alert("No se pudo realizar la búsqueda.");
+                        }
+                    });
+
+                }
 
 
-</script>
+            </script>

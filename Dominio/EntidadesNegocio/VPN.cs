@@ -28,7 +28,9 @@ namespace Dominio.EntidadesNegocio
         public List<Actividad> Actividades { get; set; }
 
         public VPN()
-        {}
+        {
+            this.Actividades = new List<Actividad>();
+        }
 
 
         public enum EnumTipo { Todos, Modem, Certificado }

@@ -4,13 +4,13 @@ using Dominio.EntidadesNegocio;
 
 namespace Client.Models
 {
-    public class ViewModelPlainVPN
+    public class VMPlainVPN
     {
 
-        public string IP { get; set; }
-        public string Inicio { get; set; }
+        public string Ip { get; set; }
+        public string Alta { get; set; }
 
-        public string Fin { get; set; }
+        public string Baja { get; set; }
 
         public VPN.EnumTipo Tipo { get; set; }
 

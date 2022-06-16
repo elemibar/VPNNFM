@@ -23,16 +23,18 @@ namespace Client.Controllers
         {
             ManejadorActividades = manActividades;
         }
+
         
         public IActionResult Index()
         {
             
-            IEnumerable<VPN> lvpn = new List<VPN>();
-            lvpn = ManejadorActividades.BuscarActividad(null, "", "");
+            VMActividad VMAct = new VMActividad();
+            VMAct.VPNs = ManejadorActividades.BuscarActividad(null, "", "") as List<VPN>;
 
-            return View(lvpn);
+            return View(VMAct);
         }
 
+/* Con JSon from Ajax
         [HttpPost]
         public IActionResult Index([FromBody]List<ViewModelPlainVPN> vmpv)
         {
@@ -72,10 +74,33 @@ namespace Client.Controllers
 
             return View(lvpn);
         }
+*/
+        // From View with model bind in view?
+        [HttpPost]
+        public IActionResult Index(VMActividad vmAct)
+        { 
+            System.Console.WriteLine("Post Index"); 
+            System.Console.WriteLine("VMPV is null: " + (vmAct == null)); 
+            System.Console.WriteLine("Cantidad PVPNs: " + vmAct.PVPNs.Count()); 
+            if (!ModelState.IsValid)
+            {
+                System.Console.WriteLine("vmAct invalido");
+            }
+            foreach(VMPlainVPN v in vmAct.PVPNs)
+            {
+                
+                System.Console.WriteLine("Ip: " + v.Ip + " Alta: " + v.Alta + " Baja: " + v.Baja + " Tipo: " + v.Tipo);
+
+            }
+
+
+            
+            return View(vmAct);
+        }
 
 
         [HttpPost]
-        public ActionResult Test([FromBody]List<ViewModelPlainVPN> vma) //
+        public ActionResult Test([FromBody]List<VMPlainVPN> vma) //
         {   
             System.Console.WriteLine("Probando RenderSearch");
                        
@@ -86,9 +111,9 @@ namespace Client.Controllers
                 if(vma.Count > 0)
                 {
                     System.Console.WriteLine("VMA not empty");
-                    foreach(ViewModelPlainVPN v in vma)
+                    foreach(VMPlainVPN v in vma)
                     {
-                        System.Console.WriteLine("ActControll RendSearch IP: " + v.IP.ToString());
+                        System.Console.WriteLine("ActControll RendSearch IP: " + v.Ip);
                     }
                     
                     return Json(vma);
@@ -98,10 +123,10 @@ namespace Client.Controllers
                 }
             }else{
                 System.Console.WriteLine("VMA NULL");
-                vma = new List<ViewModelPlainVPN>();
+                vma = new List<VMPlainVPN>();
                 //vma.Add(new ViewModelPlainVPN(){IP="1.1.1.1", Inicio=DateTime.Parse("01/01/2000"), Fin=DateTime.Parse("10/06/2022")});
                 //vma.Add(new ViewModelPlainVPN(){IP="2.2.2.2", Inicio=DateTime.Parse("25/10/2021"), Fin=DateTime.Parse("01/02/2022")});
-                vma.Add(new ViewModelPlainVPN(){IP="1.1.1.1", Inicio="01/01/2000", Fin="10/06/2022"});
+                vma.Add(new VMPlainVPN(){Ip="1.1.1.1", Alta="01/01/2000", Baja="10/06/2022"});
             }
             
             

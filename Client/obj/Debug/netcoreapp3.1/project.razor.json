@@ -14450,11 +14450,6 @@
       "FilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Views/Home/Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
-    },
-    {
-      "FilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Views/Shared/_Find.cshtml",
-      "TargetPath": "Views\\Shared\\_Find.cshtml",
-      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"
