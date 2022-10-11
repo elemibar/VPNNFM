@@ -25,6 +25,7 @@ namespace Client.Controllers
         
         public IActionResult Index(string ip, DateTime alta, DateTime baja)
         {
+            System.Console.WriteLine("ActControl/IndexG");
             if(HttpContext.Session.GetString("mail") != null)
             {
                 VMActividad VMAct = new VMActividad();
@@ -52,6 +53,7 @@ namespace Client.Controllers
         [HttpPost]
         public IActionResult Index([FromBody]List<VMPlainVPN> vma)
         {
+            System.Console.WriteLine("ActControl/IndexP");
             if(HttpContext.Session.GetString("mail") != null)
             {
                 List<String> lIpsStr = new List<string>();

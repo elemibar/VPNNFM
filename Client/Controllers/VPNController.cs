@@ -26,7 +26,7 @@ namespace Client.Controllers
         {
             if(HttpContext.Session.GetString("mail") != null)
             {
-                //System.Console.WriteLine("VPNControl GET Index");
+                
                 ViewModelVPN vmvpn = new ViewModelVPN();
                 vmvpn.VPNs = ManejadorVPNs.TraerTodasVPN();
 
@@ -41,32 +41,32 @@ namespace Client.Controllers
         {
             if(HttpContext.Session.GetString("mail") != null)
             {
-            List<string> IpsList = new List<string>();
+                List<string> IpsList = new List<string>();
 
-            if (vmvpn != null && vmvpn.PVPN != null && vmvpn.PVPN.Ip != null)
-            {
-
-                IPAddress direccionIP;
-
-                if (IPAddress.TryParse(vmvpn.PVPN.Ip, out direccionIP))
+                if (vmvpn != null && vmvpn.PVPN != null && vmvpn.PVPN.Ip != null)
                 {
-                    IpsList.Add(vmvpn.PVPN.Ip.ToString());
+
+                    IPAddress direccionIP;
+
+                    if (IPAddress.TryParse(vmvpn.PVPN.Ip, out direccionIP))
+                    {
+                        IpsList.Add(vmvpn.PVPN.Ip.ToString());
+                    }
+                    else
+                    {
+                        ViewBag.error = "Una de las direcciones IP ingresadas no es correcta. Verifique los campos.";
+                    }
+
                 }
-                else
+
+                vmvpn.VPNs = ManejadorVPNs.BuscarVPN(IpsList, vmvpn.VPN.Nombre, vmvpn.VPN.Alta.ToString(), vmvpn.VPN.Baja.ToString(), vmvpn.VPN.Tipo);
+
+                if (vmvpn.VPNs == null || vmvpn.VPNs.Count() == 0)
                 {
-                    ViewBag.error = "Una de las direcciones IP ingresadas no es correcta. Verifique los campos.";
+                    ViewBag.mensaje = "No hay VPNs que coincidan con la búsqueda.";
                 }
 
-            }
-
-            vmvpn.VPNs = ManejadorVPNs.BuscarVPN(IpsList, vmvpn.VPN.Nombre, vmvpn.VPN.Alta.ToString(), vmvpn.VPN.Baja.ToString(), vmvpn.VPN.Tipo);
-
-            if (vmvpn.VPNs == null || vmvpn.VPNs.Count() == 0)
-            {
-                ViewBag.mensaje = "No hay VPNs que coincidan con la búsqueda.";
-            }
-
-            return View(vmvpn);
+                return View(vmvpn);
             }
             return RedirectToAction("Index", "Home");
         }
@@ -79,7 +79,6 @@ namespace Client.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
 
         [HttpPost]
         public ActionResult Create(VMPlainVPN vmpvpn)

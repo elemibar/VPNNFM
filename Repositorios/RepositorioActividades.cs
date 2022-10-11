@@ -177,7 +177,7 @@ namespace Repositorios
                                     {
                                         strSql += "WHERE (ip::text LIKE (@paramStringIp)) ";
                                     }
-                                        strSql += "AND (ip::text LIKE '192.168.%') " + // Este filtro esta aplicado por la insconsistencia de los datos
+                                        strSql += //"AND (ip::text LIKE '192.168.%') " + // Este filtro esta aplicado por la insconsistencia de los datos
                                                   "AND ((alta <= (@paramFin)::timestamp OR alta IS NULL) " +
                                                     "AND (baja >= (@paramInicio)::timestamp OR baja IS NULL))) v, actividad a " +
                             "WHERE (v.ip = a.ip) " +
@@ -193,8 +193,8 @@ namespace Repositorios
                 System.Console.WriteLine("Addrs: " + IPaddrs.Count);
                 System.Console.WriteLine("Strings: " + IPs.Count);
             if(IPaddrs != null && IPaddrs.Count > 0)
-                {cmd.Parameters.Add("@paramLIp", NpgsqlDbType.Array|NpgsqlDbType.Inet).Value = IPaddrs.ToArray();
-                
+                {
+                    cmd.Parameters.Add("@paramLIp", NpgsqlDbType.Array|NpgsqlDbType.Inet).Value = IPaddrs.ToArray();
                 } 
             else
                 {cmd.Parameters.AddWithValue("paramStringIp", "%"+paramStringIp+"%");} 

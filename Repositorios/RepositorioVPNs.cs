@@ -81,7 +81,7 @@ namespace Repositorios
 
                 conn.Open();
                 
-//                NpgsqlDataReader reader = cmd.ExecuteReader();
+                //NpgsqlDataReader reader = cmd.ExecuteReader();
                 if(cmd.ExecuteNonQuery() > 0)
                     ret = true;
                 
@@ -122,7 +122,9 @@ namespace Repositorios
             string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
             NpgsqlConnection conn = new NpgsqlConnection(conStr);
             
-            string strSql = "SELECT * FROM vpn WHERE ip::text LIKE '192.168.%'";
+            // Filtro para traer solo los modems
+            //string strSql = "SELECT * FROM vpn WHERE ip::text LIKE '192.168.%'";
+            string strSql = "SELECT * FROM vpn";
             NpgsqlCommand cmd = new NpgsqlCommand(strSql, conn);
            
             
@@ -182,11 +184,8 @@ namespace Repositorios
 
         public IEnumerable<VPN> findActiveVPNsOnDates(DateTime start, DateTime end)
         {
-
             
             throw new NotImplementedException();
-
-
 
         }
         
@@ -224,7 +223,16 @@ namespace Repositorios
             }
 
              /* ESTO ES POR LA INCONSISTENCIA DE LOS DATOS */  
-            paramTipo = "192.168.";
+            System.Console.WriteLine("RepoVPN-findVPN/TipoHash: " + tipo.GetHashCode());
+            if(tipo.GetHashCode()==1)
+            {
+                paramTipo = "192.168.";
+            }
+            else if(tipo.GetHashCode()==2)
+            {
+                paramTipo = "10.";
+            }
+
 
 
             string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
@@ -233,12 +241,12 @@ namespace Repositorios
             string strSql = "SELECT * FROM vpn ";
                                 if(IPs != null && IPs.Count > 0)
                                         //strSql += "WHERE (ip=(@paramIp)) ";
-                                        strSql += "WHERE (ip = ANY(@paramLIp)) ";
-                                    else
-                                    {
-                                        strSql += "WHERE (ip::text LIKE (@paramStringIp)) ";
-                                    }
-                               strSql += "AND (ip::text LIKE (@paramTipo)) ";
+                                    strSql += "WHERE (ip = ANY(@paramLIp)) ";
+                                else
+                                {
+                                    strSql += "WHERE (ip::text LIKE (@paramStringIp)) ";
+                                }
+                               if(tipo.GetHashCode()!=0)strSql += "AND (ip::text LIKE (@paramTipo)) ";
             if(nombre != null && nombre.Length > 0)
                 strSql += "AND (nombre LIKE (@paramNombre)) ";
             else
@@ -367,6 +375,7 @@ namespace Repositorios
             return ret;
         }
 
+        // Se usa para editar 
         public VPN findByIds(IPAddress ip, DateTime? alta, DateTime? baja)
         {
             VPN nuevaVPN = new VPN();

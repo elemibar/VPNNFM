@@ -51,17 +51,10 @@
                     <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Tipo</span>
                 </label>
 
-                <select class="form-control mt-n3" disabled name="Tipo">
+                <select class="form-control mt-n3" name="VPN.Tipo">
                     @foreach (VPN.EnumTipo tip in Enum.GetValues(typeof(VPN.EnumTipo)))
                     {
-                        @if (tip.GetHashCode() == 1)
-                        {
-                            <option value="@tip" selected>@tip</option>
-                        }
-                        else
-                        {
-                            <option value="@tip">@tip</option>
-                        }
+                        <option value="@tip.GetHashCode()">@tip</option>
                     }
                 </select>
 
