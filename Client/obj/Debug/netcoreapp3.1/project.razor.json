@@ -14417,8 +14417,23 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Views/Shared/_tableActs.cshtml",
+      "TargetPath": "Views\\Shared\\_tableActs.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Views/Shared/Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Views/VPN/Edit.cshtml",
+      "TargetPath": "Views\\VPN\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Views/VPN/Create.cshtml",
+      "TargetPath": "Views\\VPN\\Create.cshtml",
       "FileKind": "mvc"
     },
     {

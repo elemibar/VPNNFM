@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Dominio.EntidadesNegocio;
 using Dominio.IRepositorios;
 using Novell.Directory.Ldap;
@@ -33,32 +32,40 @@ namespace Repositorios
 
         public bool login(string username, string password)
         {
-            string dominio = "imcanelones.gub.uy";
-            //string server = "ldap://10.1.1.25";
-            string userDn = $"cn={username},dc=imcanelones,dc=gub,dc=uy";
-            System.Console.WriteLine("-->DN:" + userDn);
-            System.Console.WriteLine("-->" + password);
-            try
-            {
-                using(LdapConnection connection = new LdapConnection{SecureSocketLayer = false})
-                {
-                    connection.Connect(dominio, LdapConnection.DefaultPort);
-                    connection.Bind(userDn, "");
-                        System.Console.WriteLine(connection.Bound);
-                    if(connection.Bound)
-                    {
-                        return true;
-                    }
-
-                }
-            }
-            catch (LdapException ex)
-            {
-                throw ex;
-                //System.Console.WriteLine("LDAP exception: " + ex.LdapErrorMessage);
-            }
             
-            return false;
+            bool ret = false;
+
+            // Restriccion para que solo inicien sesion ciertos usuarios de ATIC 
+            if(username=="emilio.barcelona"||username=="mitchel.quilici"||username=="andrea.carrion"||username=="patricia.bentancur")
+            {
+
+                
+                string server = "10.1.1.25";
+                string userDn = $"uid={username},ou=users,dc=imcanelones,dc=gub,dc=uy";
+                
+                try
+                {
+                    using(LdapConnection connection = new LdapConnection{SecureSocketLayer = false})
+                    {
+                        
+                        connection.Connect(server, LdapConnection.DefaultPort);
+
+                        connection.Bind(LdapConnection.LdapV3, userDn, password);
+                        
+                        if(connection.Bound)
+                        {
+                            ret = true; 
+                        }
+
+                    }
+                }
+                catch (LdapException ex)
+                {
+                    ret = false;
+                }
+
+            }
+            return ret;
         }
 
         public bool Remove(int id)

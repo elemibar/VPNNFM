@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Client.Models;
-using Dominio.EntidadesNegocio;
-using CasosUso;
+
 
 namespace Client.Controllers
 {
     public class HomeController : Controller
     {
 
-               
-        public IManejadorVPNs ManejadorVPNs{ get; set; }
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -29,20 +22,6 @@ namespace Client.Controllers
             return View();
         }
 
-        /*public IActionResult Login(string username, string password)
-        {
-            if(ManejadorUsuarios.Login(username, password))
-            {
-                ViewBag.msg = "Login correcto";
-            }
-            else
-            {
-                ViewBag.msg = "Login fallo";
-            }
-
-            return View();
-        }
-        */
         public IActionResult Privacy()
         {
             return View();

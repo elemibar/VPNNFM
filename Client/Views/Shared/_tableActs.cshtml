@@ -1,0 +1,271 @@
+ @model VMActividad
+ @using Dominio.EntidadesNegocio;
+ 
+ <!-- /////////////////////// BUSQUEDA //////////////////////////////////// -->
+<div class="row">
+    <div class="col-md">
+        <form class="form-row" id="frmBusc" ><!--enctype="multipart/form-data" method="post" asp-action="AddVPN">-->
+
+            <div class="form-group col-md-1">
+                <input type="button" id="btnAddIPToList" value="+"
+                    class="form-control btn btn-outline-primary btn-circle mt-3">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label class="col-sm" for="txtIp">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">IP</span>
+                </label>
+                <div class="inline">
+                    <input class="form-control mt-n3" id="txtIp" type="text" name="NIp" placeholder="IP">
+                </div>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label class="col-sm" for="dateAlta">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Inicio</span>
+                </label>
+                <input class="form-control mt-n3" id="dtInicio" type="date" name="NIni" />
+            </div>
+
+            <div class="form-group col-md-2">
+                <label class="col-sm" for="dateBaja">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Fin</span>
+                </label>
+                <input class="form-control mt-n3" id="dtFin" type="date" name="NFin" />
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="Tipo" class="col-sm">
+                    <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Tipo</span>
+                </label>
+                <select class="form-control mt-n3" disabled name="NTipo" id="selTipo">
+                    @foreach (VPN.EnumTipo tip in Enum.GetValues(typeof(VPN.EnumTipo)))
+                    {
+                        @if (tip.GetHashCode() == 1)
+                        {
+                            <option value="@tip" selected>@tip</option>
+                        }
+                        else
+                        {
+                            <option value="@tip">@tip</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group col-md-2">
+                <input type="button" id="btnBuscar" value="Buscar"
+                    class="form-control btn btn-outline-primary btn-circle mt-3">
+            </div>
+
+        </form>
+            
+ 
+           <!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
+ 
+                <table class="table table-striped col" id="tabVpns">
+                    <tbody>
+                        @{
+                            int i = 0;
+                            foreach(VMPlainVPN v in Model.PVPNs)
+                            {
+                                <tr>
+                                    <td>
+                                        <button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(this); return false;">-</button>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(x => v.Ip)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(x => v.Alta)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(x => v.Baja)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(x => v.Tipo)
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</div>
+     
+
+<!-- //////////////// SCRIPTS PARA BUSQUEDA ///////////////////////////// -->
+
+<script type="text/javascript">
+
+document.querySelector('#btnAddIPToList').addEventListener("click", addVPNToList);
+document.querySelector('#btnBuscar').addEventListener("click", buscar);
+document.querySelector('#frmBusc').addEventListener("submit", buscar);
+
+function removeIPFromListf(tabIpRow) 
+{
+
+    tabIpRow.parentNode.parentNode.remove();
+
+}
+
+function buscar(event)
+{
+    sendToControl(event, "../Actividad/Index");
+}
+
+function addVPNToList(event)
+{
+    sendToControl(event, "../Actividad/AddVPN");
+}
+
+function sendToControl(event, url)
+{
+    
+    event.preventDefault();
+    event.stopPropagation();
+
+    var JsonString = "";
+
+    var formJson = returnFormAsJson();
+    var tableJson = returnVPNsTableAsJson();
+
+    if ((formJson != null && formJson != "") || (tableJson != null && tableJson != ""))
+    {
+        JsonString = `[
+            `;
+
+        if (formJson != "") JsonString += formJson;
+
+        if (formJson != null && formJson != "" && tableJson != null && tableJson != "")
+        {
+            JsonString += `,
+                `;
+        }
+
+        if (tableJson != null && tableJson != "") JsonString += tableJson;
+
+
+        JsonString += `
+                ]`
+    }
+
+    sendToControlAjax(JsonString, url);
+
+}
+
+function returnFormAsJson()
+{
+
+    let newIp = document.querySelector("#txtIp").value;
+    let newInicio = document.querySelector("#dtInicio").value;
+    let newFin = document.querySelector("#dtFin").value;
+    let newTipo = document.querySelector("#selTipo").value;
+    var newVPN = "";
+
+    if ((newIp != "") || (newInicio != "") || (newFin != ""))
+    {
+        newVPN =
+            `{
+                "Ip": "${newIp}",
+                "Alta": "${newInicio}",
+                "Baja": "${newFin}",
+                "Tipo": 0
+            }`;
+    }
+    else
+    {
+        newVPN = "";
+    }
+
+    return newVPN;
+
+}
+
+function returnVPNsTableAsJson()
+{
+
+    var tablaRows = document.querySelectorAll("#tabVpns tbody tr");
+    let newTabIp = "";
+    let newTabInicio = "";
+    let newTabFin = "";
+    let newTabTipo = "";
+    var vpnListJson = "";
+
+    if (tablaRows != null)
+    {
+        console.log("TablaRows!=null");
+        if (tablaRows.length > 0)
+        {
+            console.log("TablaRows length > 0");
+
+            for (let i = 0; i < tablaRows.length; i++)
+            {
+                let newTabIp = tablaRows[i].querySelectorAll("td")[1].innerHTML.trim();
+
+                let newTabInicio = tablaRows[i].querySelectorAll("td")[2].innerHTML.trim();
+
+                let newTabFin = tablaRows[i].querySelectorAll("td")[3].innerHTML.trim();
+
+                let newTabTipo = tablaRows[i].querySelectorAll("td")[4].innerHTML.trim();
+
+
+                vpnListJson +=
+                    `{
+                        "Ip": "${newTabIp}",
+                        "Alta": "${newTabInicio}",
+                        "Baja": "${newTabFin}",
+                        "Tipo": 0
+                    }`;
+                if (i != tablaRows.length - 1)
+                    vpnListJson += `,
+                        `;
+            }
+        }
+        else
+        {
+            vpnListJson = "";
+        }
+    }
+
+    console.log("Tablas as Json: " + vpnListJson);
+
+    return vpnListJson;
+}
+
+function sendToControlAjax(data, url)
+{
+
+    var dataType = 'application/json; charset=utf-8';
+    console.log("Data: " + data);
+    $.ajax({
+        type: 'POST',
+        url: url,
+        //dataType: 'json',
+        contentType: dataType,
+        data: data,
+        success: function (result)
+        {
+            if(url == "../Actividad/AddVPN")
+            {
+                $('#searchForm').empty();
+                $('#searchForm').html(result);
+            }
+            else
+            {
+                $('body').empty();
+                $('body').html(result);
+            }
+        },
+        error: function (result)
+        {
+            console.log("Error");
+            console.log(result);
+        }
+    });
+
+}
+</script>

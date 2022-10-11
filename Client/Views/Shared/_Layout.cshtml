@@ -1,9 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Client</title>
+    <title>@ViewData["Title"] - VPNNFM</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -11,28 +13,44 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Client</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex space-between">
+                    <ul class="navbar-nav">
+                        
+                        @if (Context.Session.GetString("mail") != null)
+                        {
+                        
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="VPN" asp-action="Index">VPNs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Actividad" asp-action="Index">Actividad</a>
+                            </li>
+                            
+                        }
+                        
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        @if (Context.Session.GetString("mail") != null)
+                        {
+                        <li class="nav-item m-auto">
+                            @Context.Session.GetString("mail") |
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="nav-link text-danger" asp-area="" asp-controller="Usuario" asp-action="Logout" onclick="return confirm('Esta seguro que desea salir?')">Cerrar sesión</a>
                         </li>
+                        }
+                        else
+                        {
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="VPN" asp-action="Index">VPNs</a>
+                                <a class="nav-link text-success" asp-area="" asp-controller="Usuario" asp-action="Login">Iniciar sesión</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Actividad" asp-action="Index">Actividad</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
-                        </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -46,7 +64,15 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Client - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row p-n3 mb-n3">
+                &copy; 2022 - VPN Netflow Manager -
+                Secretaría de Tecnologías e Innovación -
+                Territorio Inteligente - Emilio Barcelona
+            </div>
+            <div class="row p-n3 mt-n2 mb-1 inline">
+                <a>Contacto:&nbsp;</a>
+                <a href="mailto:tics.territoriointeligente@imcanelones.gub.uy" class="link-primary">tics.territoriointeligente@imcanelones.gub.uy</a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

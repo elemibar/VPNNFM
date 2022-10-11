@@ -1,11 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "2JnI6d/XAXVO5uMyktqOeck7FnADY7vrUqWnLufbVcrucjfYZKmiv6s+5u3LfFqJwBUU+c9sXXa5GzPz/9BQfQ==",
+  "dgSpecHash": "cYB0ZOdVibSWX8tGM3c3qYkbbBKEIvyLhwuqo1+Z4DfsoUzj19iIam/sU3jSUAEsV0xHs1jb37rDKACeQLZjAw==",
   "success": true,
   "projectFilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/CasosUso/CasosUso.csproj",
   "expectedPackageFiles": [
+    "/home/ebarcelona/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "/home/ebarcelona/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512"
+    "/home/ebarcelona/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.text.json/6.0.6/system.text.json.6.0.6.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512"
   ],
   "logs": []
 }

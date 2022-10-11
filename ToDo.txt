@@ -1,0 +1,67 @@
+VALIDACIONES
+    - Validar que las IPs sean válidas en los formularios de búsqueda.
+    - Validar el resto de los campos en los formularios de búsqueda.
+64
+root:Gth-46oPl
+
+ESTRUCTURA
+    - Mover los strings y configuración de conexión a una clase conexión.
+    - Mover el js de _tableActs a un archivo aparte.
+
+FUNCIONALIDADES
+    - Agregar alta de VPNs.
+    - Agregar Editar VPNs.
+    - Permitir realizar búsquedas de VPNs con listas (cómo las actividades).
+    - Denegar acceso a acciones de controladores por ruta a usuarios no logueados.
+    - Crear modelo para usuarios y grupos.
+
+PENSAR
+    - Estructura de grupos
+
+BASE DE DATOS
+    - Crear tabla de usuarios Usuario((PK)int id, varchar(50) Usuario, int id_Grupo(FK references grupo(Id)).
+    - Crear tabla de grupos (todavía no estoy seguro de la estructura).
+
+<!-- @Html.ActionLink("Eliminar", "Delete", "VPN", new { ip=item.Ip, alta=item.Alta, baja=item.Baja }) -->
+
+<script type="text/javascript">
+    function exportData(){
+        //var rows = [];
+        var row = @Html.Raw(Json.Encode(Model.VPNs));
+        /*@foreach (var item in Model.VPNs)
+        {
+            rows.push(
+                [
+                        @item.Ip.ToString(),
+                        @Html.DisplayFor(modelItem => item.Usuario),
+                        @Html.DisplayFor(modelItem => item.Nombre),
+                        @Html.DisplayFor(modelItem => item.Dependencia),
+                        @Html.DisplayFor(modelItem => item.Direccion),
+                        @Html.DisplayFor(modelItem => item.Gabinete),
+                        @item.Alta.ToString(),
+                        @item.Baja.ToString(),
+                        @Html.DisplayFor(modelItem => item.Tipo),
+                ]
+            );
+        }*/
+
+        csvContent = "data:text/csv;charset=utf-8,";
+            /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+            rows.forEach(function(rowArray){
+                row = rowArray.join(",");
+                csvContent += row + "\r\n";
+            });
+    
+            /* create a hidden <a> DOM node and set its download attribute */
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Stock_Price_Report.csv");
+            document.body.appendChild(link);
+            /* download the data file named "Stock_Price_Report.csv" */
+            link.click();
+    }
+</script>
+
+
+var row = @Html.Raw(Json.Serialize(@Model.VPNs.Ip.ToString()));

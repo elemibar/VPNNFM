@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xU7OjywnD2WC2tXQPg8qfk4tXiJ3ZtN5toIRgcXvFmLJF4izOAPUv0WwV5yB/461R4q6H7ai2TRk7EuOpaKm7Q==",
+  "dgSpecHash": "1F9HibmmM5l7hSnA/hxGjXgNVjtTEj54XoqXqLYEibLnA+QvY93vLnW2jY7rUqgks/KgFrjtkVadT5ShYwB0oQ==",
   "success": true,
   "projectFilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Client.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,9 @@
     "/home/ebarcelona/.nuget/packages/npgsql/6.0.4/npgsql.6.0.4.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.diagnostics.diagnosticsource/6.0.0/system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
-    "/home/ebarcelona/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "/home/ebarcelona/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.text.json/6.0.6/system.text.json.6.0.6.nupkg.sha512"
   ],
   "logs": []
 }

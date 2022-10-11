@@ -2,7 +2,7 @@
 @using Dominio.EntidadesNegocio;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "VPNs";
 }
 
 <h1>VPNs</h1>
@@ -11,8 +11,8 @@
     <a asp-action="Create">Agregar VPN</a>
 </p>
 
-
-<!-- ////////////////////////////////////////////////////// -->
+<!-- <p class="small text-danger">Debido a la inconsistencia de los datos en la BD sólo se muestra la actividad de los modems.</p> -->
+<!-- ////////////////////// BUSQUEDA //////////////////////////////// -->
 
 <div class="row">
     <div class="col-md">
@@ -22,49 +22,49 @@
                 <label class="col-sm-2" for="txtIp">
                     <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">IP</span>
                 </label>
-                <input class="form-control mt-n3" id="txtIp" type="text" name="IP" placeholder="IP"/>
+                <input class="form-control mt-n3" id="txtIp" type="text" name="PVPN.Ip" placeholder="IP" />
             </div>
 
             <div class="form-group col-md-2">
                 <label class="col-sm-2" for="nombre">
                     <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Nombre</span>
                 </label>
-                <input class="form-control mt-n3" id="nombre" type="text" name="VPN.nombre" placeholder="Nombre"/>
+                <input class="form-control mt-n3" id="nombre" type="text" name="VPN.nombre" placeholder="Nombre" />
             </div>
 
             <div class="form-group col-md-2">
                 <label class="col-sm-2" for="dateAlta">
                     <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Fecha_Alta</span>
                 </label>
-                <input class="form-control mt-n3" id="dateAlta" type="date" name="VPN.Alta" placeholder="Fecha"/>
+                <input class="form-control mt-n3" id="dateAlta" type="date" name="VPN.Alta" placeholder="Fecha" />
             </div>
 
             <div class="form-group col-md-2">
                 <label class="col-sm-2" for="dateBaja">
                     <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Fecha_Baja</span>
                 </label>
-                <input class="form-control mt-n3" id="dateBaja" type="date" name="VPN.Baja" placeholder="Fecha"/>
+                <input class="form-control mt-n3" id="dateBaja" type="date" name="VPN.Baja" placeholder="Fecha" />
             </div>
 
             <div class="form-group col-md-2">
                 <label for="Tipo" class="col-sm-2">
                     <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Tipo</span>
                 </label>
-                                   
-                    <select class="form-control mt-n3" disabled name="Tipo">
-                        @foreach (VPN.EnumTipo tip in Enum.GetValues(typeof(VPN.EnumTipo)))
+
+                <select class="form-control mt-n3" disabled name="Tipo">
+                    @foreach (VPN.EnumTipo tip in Enum.GetValues(typeof(VPN.EnumTipo)))
+                    {
+                        @if (tip.GetHashCode() == 1)
                         {
-                            @if(tip.GetHashCode() == 1)
-                            {
-                                <option value="@tip" selected>@tip</option>
-                            }
-                            else
-                            {
-                                <option value="@tip">@tip</option>
-                            }
+                            <option value="@tip" selected>@tip</option>
                         }
-                    </select>
-                
+                        else
+                        {
+                            <option value="@tip">@tip</option>
+                        }
+                    }
+                </select>
+
             </div>
 
             <div class="form-group col-md-2">
@@ -77,82 +77,135 @@
 
 <!-- ///////////////////////////////////////////// -->
 
+<p class="text-danger">@ViewBag.error </p>
 
+<!-- //////////// BOTON DESACARGA ////////////// -->
 
+<button class="btn btn-outline-primary mb-3" type="button" onclick="exportData()">
+    <img src="~/Icons/download.svg" width="16" height="16">
+    Descargar
+</button>
 
-    <table class="table">
-        <thead>
+<!-- ///////////////////////////////////////////// -->
+<table class="table">
+    <thead style="position: sticky;top: 0;" class="thead-dark">
+        <tr>
+
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Ip)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Usuario)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Nombre)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Dependencia)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Direccion)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Gabinete)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Alta)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Baja)
+            </th>
+            <th class="header" scope="col">
+                @Html.DisplayNameFor(model => model.VPN.Tipo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.VPNs)
+        {
             <tr>
 
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Ip)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Usuario)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Dependencia)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Direccion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Gabinete)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Alta)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Baja)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VPN.Tipo)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.VPNs)
-        {
-                <tr>
-
-                    <td>
+                <td>
                     @item.Ip.ToString()
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Usuario)
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Dependencia)
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Direccion)
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Gabinete)
-                    </td>
-                    <td>
-                    @item.Alta.ToString()
-                    </td>
-                    <td>
-                    @item.Baja.ToString()
-                    </td>
-                    <td>
+                </td>
+                <td>
+                    @if(item.Alta != null && item.Alta.ToString() != "1/1/0001 00:00:00")
+                    {
+                        @item.Alta.ToString()
+                    }
+                </td>
+                <td>
+                    @if(item.Baja != null && item.Baja.ToString() != "1/1/0001 00:00:00")
+                    {
+                        @item.Baja.ToString()
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Tipo)
-                    </td>
-                    <td>
+                </td>
+                <td>
                     @Html.ActionLink("Actividad", "Index", "Actividad", new { ip=item.Ip, alta=item.Alta, baja=item.Baja })
-                    </td>
-                </tr>
+                    @Html.ActionLink("Modificar", "Edit", "VPN", new { ip=item.Ip, alta=item.Alta, baja=item.Baja })
+                </td>
+            </tr>
         }
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
 
 <p>@ViewBag.mensaje </p>
+
+<script type="text/javascript">
+function exportData(){
+    var currentdate = new Date();
+    var JVPNS = @Html.Raw(Json.Serialize(@Model.VPNs));
+    
+    csvContent = "data:text/csv;charset=utf-8,";
+    /* agrega el delimitador de columna como "," y cada row separada por un salto de linea(\r\n) */
+    /* valida ademas si los campos son nulos agrega celda vacia y si las fechas son "indefinidas" tambien es celda vacia */
+    JVPNS.forEach(function(rowArray){
+        row =   (rowArray.ip===null?" ":rowArray.ip)+","+
+                (rowArray.usuario===null?" ":rowArray.usuario)+","+
+                (rowArray.nombre===null?" ":rowArray.nombre)+","+
+                (rowArray.dependencia===null?" ":rowArray.dependencia)+","+
+                (rowArray.direccion===null?" ":rowArray.direccion)+","+
+                (rowArray.gabinete===null?" ":rowArray.gabinete)+","+
+                (rowArray.alta==="0001-01-01T00:00:00"?" ":rowArray.alta)+","+
+                (rowArray.baja==="0001-01-01T00:00:00"?" ":rowArray.baja)+","+
+                (rowArray.tipo===1?"Modem":"Certificado");
+        //console.log(rowArray);
+        csvContent += row + "\r\n";
+    });
+
+    /* crea un nodo DOM <a> oculto y le setea el atributo download */
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    
+    link.setAttribute("download", "reporte_VPNs_"+currentdate.getDate()+""+
+                (currentdate.getMonth()+1)+""+
+                currentdate.getFullYear()+""+
+                currentdate.getHours()+""+
+                currentdate.getMinutes()+".csv");
+    document.body.appendChild(link);
+    /* descarga el archivo de datos con nombre "reporte_VPNs.csv" */
+    link.click();    
+
+}
+</script>

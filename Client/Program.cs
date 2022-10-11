@@ -20,7 +20,9 @@ namespace Client
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://10.1.5.45:5001")
+                    .UseStartup<Startup>();
+                    //webBuilder.UseStartup<Startup>();
                 });
     }
 }

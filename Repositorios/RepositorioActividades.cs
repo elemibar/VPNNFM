@@ -146,22 +146,18 @@ namespace Repositorios
             {
                 foreach(string ipstring in IPs)
                 {
+                    System.Console.WriteLine("IPString: " + ipstring);
                     if(ipstring!=null && ipstring.Length>0) IPaddrs.Add(IPAddress.Parse(ipstring));
-                }
-                foreach(IPAddress ipinlist in IPaddrs)
-                {
-                    if(ipinlist!=null) 
-                    System.Console.WriteLine("RepoAct findAct IPs: " + ipinlist.ToString());
                 }
                 
             }
          
-            System.Console.WriteLine("INICIO: " + inicio);
+            
             if(inicio != null && inicio != "1/1/0001 00:00:00" && inicio != "")
             {
                 paramInicio = inicio;
             }
-            System.Console.WriteLine("FIN: " + fin);
+            
             if(fin != null && fin != "1/1/0001 00:00:00" && fin != "")
             {
                 paramFin = fin;
@@ -174,7 +170,7 @@ namespace Repositorios
             string strSql = "SELECT v.*, a.* " +
                             "FROM (SELECT ip, usuario, nombre, dependencia, direccion, gabinete, alta, baja " +
                                     "FROM vpn ";
-                                    if(IPs != null && IPs.Count > 0)
+                                    if(IPaddrs != null && IPaddrs.Count > 0)
                                         //strSql += "WHERE (ip=(@paramIp)) ";
                                         strSql += "WHERE (ip = ANY(@paramLIp)) ";
                                     else
@@ -194,17 +190,20 @@ namespace Repositorios
 
             NpgsqlCommand cmd = new NpgsqlCommand(strSql, conn);
 
-                //cmd.Parameters.AddWithValue("paramIp", paramIp);
+                System.Console.WriteLine("Addrs: " + IPaddrs.Count);
+                System.Console.WriteLine("Strings: " + IPs.Count);
             if(IPaddrs != null && IPaddrs.Count > 0)
-                {cmd.Parameters.Add("@paramLIp", NpgsqlDbType.Array|NpgsqlDbType.Inet).Value = IPaddrs.ToArray();} //System.Console.WriteLine("RepoAct param List");}
+                {cmd.Parameters.Add("@paramLIp", NpgsqlDbType.Array|NpgsqlDbType.Inet).Value = IPaddrs.ToArray();
+                
+                } 
             else
-                {cmd.Parameters.AddWithValue("paramStringIp", "%"+paramStringIp+"%");} //System.Console.WriteLine("RepoAct param vacio");}
+                {cmd.Parameters.AddWithValue("paramStringIp", "%"+paramStringIp+"%");} 
             cmd.Parameters.AddWithValue("paramFin", paramFin);
-            //System.Console.WriteLine("RepoAct findAct fecFinParam: " + paramFin);
-            cmd.Parameters.AddWithValue("paramInicio", paramInicio);
-            //System.Console.WriteLine("RepoAct findAct fecIniParam: " + paramInicio);
             
-            //System.Console.WriteLine(strSql);
+            cmd.Parameters.AddWithValue("paramInicio", paramInicio);
+            
+            
+            
 
             try 
             {
@@ -254,6 +253,7 @@ namespace Repositorios
                     else
                     {
                         ultimaVPN = nuevaVPN;
+                        ultimaVPN.Actividades.Add(nuevaActividad);
                         TodasActividadesPorVPN.Add(ultimaVPN);
                     }
 
@@ -280,6 +280,7 @@ namespace Repositorios
             }
 
             //System.Console.WriteLine("RepoAct findAct ret: " + TodasActividadesPorVPN.Count);
+            //System.Console.WriteLine("RepoAct findAct ret: " + TodasActividadesPorVPN[0].Actividades.Count);
             return TodasActividadesPorVPN;
 
         }

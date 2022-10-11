@@ -1,18 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Dominio.EntidadesNegocio;
-using Microsoft.AspNetCore.Http;
+
 
 namespace Client.Models
 {
     public class VMActividad
     {
 
-        public List<VPN> VPNs = new List<VPN>();
+        public List<VPN> VPNs = new List<VPN>(); //Para traer a la vista las VPNs con las actividades
 
-        public List<VMPlainVPN> PVPNs = new List<VMPlainVPN>();
+        public List<VMPlainVPN> PVPNs = new List<VMPlainVPN>(); //Para mandar la lista de vpns a buscar al controller
 
 
         public VMActividad()

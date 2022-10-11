@@ -13,8 +13,16 @@ namespace Client.Models
         public IEnumerable<VPN> VPNs { get; set; }
         public VPN VPN { get; set; }
 
+        //Provisorio para enviar el modelo al controlador para un filtro, cuando se cambie a lista (con ajax y blabla) sacarlo
+        public VMPlainVPN PVPN {get; set;}
+
         public List<string> IPs { get; set; }
 
+        public ViewModelVPN()
+        {
+            VPNs = new List<VPN>();
+            IPs = new List<string>();
+        }
         
     }
 }

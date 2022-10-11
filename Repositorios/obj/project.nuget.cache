@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "B3rQigh2bd5dhu9T24ucUBoE/P3COpXFwuiE4R31w7FKbQwlO7aBCxTYCEqGpQlxdBZ1/xb4EJTtucx6l3pm5g==",
+  "dgSpecHash": "NhE1esCwEKVtGPmf6BOjlXcdalpxYWj1MIdGyEtIA7wS/Fu9aziP3duQjd0P9cig+5ntGjoEo49bp1wTUsUMuQ==",
   "success": true,
   "projectFilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Repositorios/Repositorios.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,7 @@
     "/home/ebarcelona/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
-    "/home/ebarcelona/.nuget/packages/system.text.json/6.0.0/system.text.json.6.0.0.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/system.text.json/6.0.6/system.text.json.6.0.6.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.threading.channels/6.0.0/system.threading.channels.6.0.0.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.valuetuple/4.5.0/system.valuetuple.4.5.0.nupkg.sha512"

@@ -49,3 +49,9 @@
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/System.Diagnostics.DiagnosticSource.dll
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/Razor/Views/Actividad/Index.cshtml.g.cs
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_tableActs.cshtml.g.cs
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/Razor/Views/VPN/Create.cshtml.g.cs
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/mono_crash.2207df118e.0.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/Razor/Views/VPN/Edit.cshtml.g.cs
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/System.Text.Encodings.Web.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/System.Text.Json.dll
