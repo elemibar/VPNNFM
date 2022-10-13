@@ -96,6 +96,28 @@
     </div>
 </div>
      
+<div class="container-fluid">
+<div class="row justify-content-center mx-3">
+        <div class="column md-12">
+            <button class="btn mb-3" type="button" @(Model.pagina>10?null:"disabled")>
+                <img src="~/Icons/angulo-doble-pequeno-izquierdo.svg" width="16" height="16">
+            </button>
+            <button class="btn mb-3" type="button" @(Model.pagina>1?null:"disabled")>
+                <img src="~/Icons/angulo-pequeno-izquierdo.svg" width="16" height="16">
+            </button>
+            <a>@Model.pagina de @(Model.cantRows/Model.tamanioPag)</a>
+            <button class="btn mb-3" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>1?null:"disabled")>
+                <img src="~/Icons/angulo-pequeno-derecho.svg" width="16" height="16">
+            </button>
+            <button class="btn mb-3" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>10?null:"disabled")>
+                <img src="~/Icons/angulo-doble-pequeno-derecho.svg" width="16" height="16">
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
 
 <!-- //////////////// SCRIPTS PARA BUSQUEDA ///////////////////////////// -->
 
@@ -104,6 +126,9 @@
 document.querySelector('#btnAddIPToList').addEventListener("click", addVPNToList);
 document.querySelector('#btnBuscar').addEventListener("click", buscar);
 document.querySelector('#frmBusc').addEventListener("submit", buscar);
+document.querySelector('#btnDer1').addEventListener("click", buscarMas1);
+document.querySelector('#btnDer10').addEventListener("click", buscarMas10);
+
 
 function removeIPFromListf(tabIpRow) 
 {
@@ -135,7 +160,7 @@ function sendToControl(event, url)
 
     if ((formJson != null && formJson != "") || (tableJson != null && tableJson != ""))
     {
-        JsonString = `[
+        JsonString = `{"PVPNs":[
             `;
 
         if (formJson != "") JsonString += formJson;
@@ -150,7 +175,12 @@ function sendToControl(event, url)
 
 
         JsonString += `
-                ]`
+                ]`;
+
+        // Nuevo para paginacion
+        JsonString += `,
+                "pagina": 2,
+                "tamanioPag":10}`;
     }
 
     sendToControlAjax(JsonString, url);

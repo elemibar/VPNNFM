@@ -79,7 +79,7 @@
     Descargar
 </button>
 
-<!-- ///////////////////////////////////////////// -->
+<!-- ////////////// TABLA ////////////////////// -->
 <table class="table">
     <thead style="position: sticky;top: 0;" class="thead-dark">
         <tr>
@@ -153,7 +153,7 @@
                     @Html.DisplayFor(modelItem => item.Tipo)
                 </td>
                 <td>
-                    @Html.ActionLink("Actividad", "Index", "Actividad", new { ip=item.Ip, alta=item.Alta, baja=item.Baja })
+                    @Html.ActionLink("Actividad", "Index", "Actividad", new { ip=item.Ip, alta=item.Alta, baja=item.Baja, pagina=0, tamanioPag=50})
                     @Html.ActionLink("Modificar", "Edit", "VPN", new { ip=item.Ip, alta=item.Alta, baja=item.Baja })
                 </td>
             </tr>
@@ -163,12 +163,14 @@
 
 
 <p>@ViewBag.mensaje </p>
+<!-- //////////////////////////////////////////// -->
 
+<!-- ////////////// SCRIPT ////////////////////// -->
 <script type="text/javascript">
 function exportData(){
     var currentdate = new Date();
     var JVPNS = @Html.Raw(Json.Serialize(@Model.VPNs));
-    
+    console.log(@Html.Raw(Json.Serialize(@Model)));
     csvContent = "data:text/csv;charset=utf-8,";
     /* agrega el delimitador de columna como "," y cada row separada por un salto de linea(\r\n) */
     /* valida ademas si los campos son nulos agrega celda vacia y si las fechas son "indefinidas" tambien es celda vacia */

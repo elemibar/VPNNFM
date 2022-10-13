@@ -7,6 +7,7 @@
 }
 
 <h1>Actividades</h1>
+<!-- //////////////// BUSQUEDA ///////////////////////////// -->
 <!-- <p class="small text-danger">Debido a la inconsistencia de los datos en la BD sólo se muestra la actividad de los modems.</p> -->
 <div id="searchForm">
     @{
@@ -14,128 +15,133 @@
     }
 </div>
 
-<!-- //////////////// LISTADO DE ACTIVIDADES ///////////////////////////// -->
-
 <p class="px-4 text-danger">@ViewBag.error </p>
 
-<div class="px-4">
-<table class="table">
-    <thead style="position: sticky;top: 0;" class="thead-dark">
-        <tr>
+<!-- /////////////////////////////////////////////////////// -->
 
-            <th class="header" scope="col">
-                IP
-            </th>
-            <th class="header" scope="col">
-                Nombre
-            </th>
-            <th class="header" scope="col">
-                Dependencia
-            </th>
-            <th class="header" scope="col">
-                Direccion
-            </th>
-            <th class="header" scope="col">
-                Gabinete
-            </th>
-            <th class="header" scope="col">
-                Alta
-            </th>
-            <th class="header" scope="col">
-                Baja
-            </th>
-            <th class="header" scope="col">
-                Tipo
-            </th>
-            <!-------------------------------------------------------------------->
-            <th class="header" scope="col">
-                Inicio
-            </th>
-            <th class="header" scope="col">
-                Fin
-            </th>
-            <th class="header" scope="col">
-                Segundos
-            </th>
-            <th class="header" scope="col">
-                Destino
-            </th>
-            <th class="header" scope="col">
-                Protocolo
-            </th>
-            <th class="header" scope="col">
-                Puerto
-            </th>
-            <th class="header" scope="col">
-                Bytesh
-            </th>
-            <th class="header" scope="col">
-                Bytes
-            </th>
-            <!--------------------------------------------------------------->
+<!-- ////////////////// TABLA ////////////////////////////// -->
+<div class="container-fluid">
+    <div class="row justify-content-center px-1">
+        <div class="column md-12 w-auto">
+            <table class="table">
+                <thead style="position: sticky;top: 0;" class="thead-dark">
+                    <tr>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.VPNs)
-        {
-            @foreach (var act in item.Actividades)
-            {
-                <tr>
+                        <th class="header" scope="col">
+                            IP
+                        </th>
+                        <th class="header" scope="col">
+                            Nombre
+                        </th>
+                        <th class="header" scope="col">
+                            Dependencia
+                        </th>
+                        <th class="header" scope="col">
+                            Direccion
+                        </th>
+                        <th class="header" scope="col">
+                            Gabinete
+                        </th>
+                        <th class="header" scope="col">
+                            Alta
+                        </th>
+                        <th class="header" scope="col">
+                            Baja
+                        </th>
+                        <th class="header" scope="col">
+                            Tipo
+                        </th>
+                        <!-------------------------------------------------------------------->
+                        <th class="header" scope="col">
+                            Inicio
+                        </th>
+                        <th class="header" scope="col">
+                            Fin
+                        </th>
+                        <th class="header" scope="col">
+                            Segundos
+                        </th>
+                        <th class="header" scope="col">
+                            Destino
+                        </th>
+                        <th class="header" scope="col">
+                            Protocolo
+                        </th>
+                        <th class="header" scope="col">
+                            Puerto
+                        </th>
+                        <th class="header" scope="col">
+                            Bytesh
+                        </th>
+                        <th class="header" scope="col">
+                            Bytes
+                        </th>
+                        <!--------------------------------------------------------------->
 
-                    <td>
-                        @item.Ip.ToString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Dependencia)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Direccion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Gabinete)
-                    </td>
-                    <td>
-                        @item.Alta.ToString()
-                    </td>
-                    <td>
-                        @item.Baja.ToString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tipo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Inicio)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Fin)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Segundos)
-                    </td>
-                    <td>
-                        @act.Destino.ToString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Protocolo)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Puerto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Bytesh)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => act.Bytes)
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.VPNs)
+                    {
+                        @foreach (var act in item.Actividades)
+                        {
+                            <tr>
+
+                                <td>
+                                    @item.Ip.ToString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Dependencia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direccion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Gabinete)
+                                </td>
+                                <td>
+                                    @item.Alta.ToString()
+                                </td>
+                                <td>
+                                    @item.Baja.ToString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tipo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Inicio)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Fin)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Segundos)
+                                </td>
+                                <td>
+                                    @act.Destino.ToString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Protocolo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Puerto)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Bytesh)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => act.Bytes)
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <p>@ViewBag.mensaje </p>

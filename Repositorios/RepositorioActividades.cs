@@ -133,7 +133,110 @@ namespace Repositorios
             throw new NotImplementedException();
         }
        
-        public IEnumerable<VPN> findActividad(List<string> IPs, string inicio, string fin)
+        public Int64 findCantActividad(List<string> IPs, string inicio, string fin)
+        {
+            Int64 CantActividadesPorVPN = 0;     
+            
+            List<IPAddress> IPaddrs = new List<IPAddress>();
+            string paramStringIp = "";
+            string paramInicio = "-infinity"; //inicio
+            string paramFin = "infinity"; //fin
+
+            if(IPs != null && IPs.Count > 0)
+            {
+                foreach(string ipstring in IPs)
+                {
+                    System.Console.WriteLine("IPString: " + ipstring);
+                    if(ipstring!=null && ipstring.Length>0) IPaddrs.Add(IPAddress.Parse(ipstring));
+                }
+                
+            }
+         
+            
+            if(inicio != null && inicio != "1/1/0001 00:00:00" && inicio != "")
+            {
+                paramInicio = inicio;
+            }
+            
+            if(fin != null && fin != "1/1/0001 00:00:00" && fin != "")
+            {
+                paramFin = fin;
+            }
+            
+            /* MOVER A CLASE CONECTIONHANDLER */
+            string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
+            NpgsqlConnection conn = new NpgsqlConnection(conStr);
+            
+            string strSql = "SELECT COUNT(*)" +
+                            "FROM (SELECT ip, usuario, nombre, dependencia, direccion, gabinete, alta, baja " +
+                                    "FROM vpn ";
+                                    if(IPaddrs != null && IPaddrs.Count > 0)
+                                        //strSql += "WHERE (ip=(@paramIp)) ";
+                                        strSql += "WHERE (ip = ANY(@paramLIp)) ";
+                                    else
+                                    {
+                                        strSql += "WHERE (ip::text LIKE (@paramStringIp)) ";
+                                    }
+                                        strSql += //"AND (ip::text LIKE '192.168.%') " + // Este filtro esta aplicado por la insconsistencia de los datos
+                                                  "AND ((alta <= (@paramFin)::timestamp OR alta IS NULL) " +
+                                                    "AND (baja >= (@paramInicio)::timestamp OR baja IS NULL))) v, actividad a " +
+                            "WHERE (v.ip = a.ip) " +
+                                "AND ((a.inicio >= (@paramInicio)::timestamp) " + 
+                                    "AND (a.fin <= (@paramFin)::timestamp)) " +
+                                "AND (((a.inicio >= v.alta)OR(v.alta IS NULL)) " +
+                                    "AND ((a.fin <= v.baja)OR(v.baja IS NULL))) ";
+
+
+            NpgsqlCommand cmd = new NpgsqlCommand(strSql, conn);
+
+            
+            if(IPaddrs != null && IPaddrs.Count > 0)
+            {
+                cmd.Parameters.Add("@paramLIp", NpgsqlDbType.Array|NpgsqlDbType.Inet).Value = IPaddrs.ToArray();
+            } 
+            else
+            {cmd.Parameters.AddWithValue("paramStringIp", "%"+paramStringIp+"%");} 
+            
+            cmd.Parameters.AddWithValue("paramFin", paramFin);
+            
+            cmd.Parameters.AddWithValue("paramInicio", paramInicio);
+
+
+            try 
+            {
+
+                conn.Open();
+                
+                CantActividadesPorVPN = (Int64)cmd.ExecuteScalar();
+                
+            }
+            catch(NpgsqlException ex)
+            {
+                 if(conn.State != System.Data.ConnectionState.Closed)
+                    conn.Close();
+                
+                    conn.Dispose();
+                //throw;
+                System.Console.WriteLine(ex);
+            }
+            finally
+            {
+                if(conn.State != System.Data.ConnectionState.Closed)
+                    conn.Close();
+                
+                    conn.Dispose();
+                
+            }
+
+            
+            return CantActividadesPorVPN;
+
+        }
+
+    
+
+
+        public IEnumerable<VPN> findActividad(List<string> IPs, string inicio, string fin, int pagina, int tamanioPag)
         {
             List<VPN> TodasActividadesPorVPN = new List<VPN>();      
             
@@ -185,13 +288,16 @@ namespace Repositorios
                                     "AND (a.fin <= (@paramFin)::timestamp)) " +
                                 "AND (((a.inicio >= v.alta)OR(v.alta IS NULL)) " +
                                     "AND ((a.fin <= v.baja)OR(v.baja IS NULL))) " +
-                            "ORDER BY v.ip";
+                            "ORDER BY v.ip " +
+                            "LIMIT @paramLim OFFSET @paramOffs";
 
 
             NpgsqlCommand cmd = new NpgsqlCommand(strSql, conn);
 
-                System.Console.WriteLine("Addrs: " + IPaddrs.Count);
-                System.Console.WriteLine("Strings: " + IPs.Count);
+            cmd.Parameters.AddWithValue("@paramLim", tamanioPag);
+            cmd.Parameters.AddWithValue("@paramOffs", (pagina*tamanioPag));
+
+
             if(IPaddrs != null && IPaddrs.Count > 0)
                 {
                     cmd.Parameters.Add("@paramLIp", NpgsqlDbType.Array|NpgsqlDbType.Inet).Value = IPaddrs.ToArray();
@@ -284,6 +390,8 @@ namespace Repositorios
             return TodasActividadesPorVPN;
 
         }
+
+
 
     }
 }

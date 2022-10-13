@@ -11,6 +11,11 @@ namespace Client.Models
 
         public List<VMPlainVPN> PVPNs = new List<VMPlainVPN>(); //Para mandar la lista de vpns a buscar al controller
 
+        public int pagina{get;set;} // Pagina de actividades actual
+
+        public int cantRows{get;set;} // Maxima cantidad de paginas (total de rows / tamanio de la pagina)
+
+        public int tamanioPag{get;set;} // Tamanio de la pagina
 
         public VMActividad()
         {
