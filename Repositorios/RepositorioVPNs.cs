@@ -35,7 +35,7 @@ namespace Repositorios
             }
             NpgsqlCommand cmd = new NpgsqlCommand(strSql, conn);
            
-            System.Console.WriteLine(strSql);
+            
 
             if(obj.Usuario == null)
             {
@@ -89,7 +89,7 @@ namespace Repositorios
             }
             catch(NpgsqlException ex)
             {
-                System.Console.WriteLine(ex);
+                
                 throw;
             }
             finally
@@ -162,7 +162,7 @@ namespace Repositorios
                 
                     //conn.Dispose();
                 //throw;
-                System.Console.WriteLine(ex);
+                
             }
             finally
             {
@@ -206,8 +206,7 @@ namespace Repositorios
             {
                 foreach(string ipstr in IPs)
                 {
-                    System.Console.WriteLine("RepoVPN Lista de IPs: " + ipstr);
-                    
+                                        
                     IPAddrs.Add(IPAddress.Parse(ipstr));
                 }
             }
@@ -223,7 +222,7 @@ namespace Repositorios
             }
 
              /* ESTO ES POR LA INCONSISTENCIA DE LOS DATOS */  
-            System.Console.WriteLine("RepoVPN-findVPN/TipoHash: " + tipo.GetHashCode());
+            
             if(tipo.GetHashCode()==1)
             {
                 paramTipo = "192.168.";
@@ -307,7 +306,7 @@ namespace Repositorios
                 
                     //conn.Dispose();
                 //throw;
-                System.Console.WriteLine(ex);
+                
             }
             finally
             {
@@ -359,7 +358,7 @@ namespace Repositorios
                     //conn.Close();
                 
                     //conn.Dispose();
-                System.Console.WriteLine(ex);
+                
                 throw;
             }
             finally
@@ -427,7 +426,7 @@ namespace Repositorios
                     //conn.Close();
                 
                     //conn.Dispose();
-                System.Console.WriteLine(ex);
+                
                 throw;
             }
             finally

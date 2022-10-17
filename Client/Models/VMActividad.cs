@@ -7,9 +7,9 @@ namespace Client.Models
     public class VMActividad
     {
 
-        public List<VPN> VPNs = new List<VPN>(); //Para traer a la vista las VPNs con las actividades
+        public List<VPN> VPNs{get; set;} //Para traer a la vista las VPNs con las actividades
 
-        public List<VMPlainVPN> PVPNs = new List<VMPlainVPN>(); //Para mandar la lista de vpns a buscar al controller
+        public List<VMPlainVPN> PVPNs{get; set;} //Para mandar la lista de vpns a buscar al controller
 
         public int pagina{get;set;} // Pagina de actividades actual
 

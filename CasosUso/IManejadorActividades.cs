@@ -7,9 +7,9 @@ namespace CasosUso
 {
     public interface IManejadorActividades
     {
-        IEnumerable<VPN> BuscarActividad(List<string> ips, string incio, string fin, int pagina, int tamanioPag);
+        IEnumerable<VPN> BuscarActividad(List<string> ips, string incio, string fin, int pagina, int tamanioPag, VPN.EnumTipo tipo);
 
-        Int64 CantidadActividades(List<string> IPs, string inicio, string fin);
+        Int64 CantidadActividades(List<string> IPs, string inicio, string fin, VPN.EnumTipo tipo);
 
         IEnumerable<VPN> TraerTodasActividades();
         

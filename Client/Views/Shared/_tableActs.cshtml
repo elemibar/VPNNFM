@@ -4,6 +4,7 @@
  <!-- /////////////////////// BUSQUEDA //////////////////////////////////// -->
 <div class="row">
     <div class="col-md">
+
         <form class="form-row" id="frmBusc" ><!--enctype="multipart/form-data" method="post" asp-action="AddVPN">-->
 
             <div class="form-group col-md-1">
@@ -38,23 +39,18 @@
                 <label for="Tipo" class="col-sm">
                     <span class="h6 small bg-white text-muted pt-1 pl-2 pr-2">Tipo</span>
                 </label>
-                <select class="form-control mt-n3" disabled name="NTipo" id="selTipo">
+                <select class="form-control mt-n3" name="NTipo" id="selTipo">
                     @foreach (VPN.EnumTipo tip in Enum.GetValues(typeof(VPN.EnumTipo)))
                     {
-                        @if (tip.GetHashCode() == 1)
-                        {
-                            <option value="@tip" selected>@tip</option>
-                        }
-                        else
-                        {
-                            <option value="@tip">@tip</option>
-                        }
+                        
+                        <option value="@tip.GetHashCode()">@tip</option>
+                        
                     }
                 </select>
             </div>
 
             <div class="form-group col-md-2">
-                <input type="button" id="btnBuscar" value="Buscar"
+                <input type="button" id="btnBuscar" value="Buscar" valor="0"
                     class="form-control btn btn-outline-primary btn-circle mt-3">
             </div>
 
@@ -63,54 +59,61 @@
  
            <!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
  
-                <table class="table table-striped col" id="tabVpns">
-                    <tbody>
-                        @{
-                            int i = 0;
-                            foreach(VMPlainVPN v in Model.PVPNs)
-                            {
-                                <tr>
-                                    <td>
-                                        <button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(this); return false;">-</button>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(x => v.Ip)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(x => v.Alta)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(x => v.Baja)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(x => v.Tipo)
-                                    </td>
-                                </tr>
-                                i++;
-                            }
-                        }
+        <table class="table table-striped col" id="tabVpns">
+            <tbody>
+                @{
+                    int i = 0;
+                    foreach(VMPlainVPN v in Model.PVPNs)
+                    {
+                        <tr>
+                            <td>
+                                <button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(this); return false;">-</button>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => v.Ip)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => v.Alta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => v.Baja)
+                            </td>
+                            <td value="@v.Tipo.GetHashCode()">
+                                @Html.DisplayFor(x => v.Tipo)
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
                         
-                    </tbody>
-                </table>
-            </div>
+            </tbody>
+        </table>
+            
     </div>
 </div>
      
 <div class="container-fluid">
-<div class="row justify-content-center mx-3">
-        <div class="column md-12">
-            <button class="btn mb-3" type="button" @(Model.pagina>10?null:"disabled")>
-                <img src="~/Icons/angulo-doble-pequeno-izquierdo.svg" width="16" height="16">
+    <div class="row justify-content-center mx-3">
+        <!-- //////////// BOTON DESACARGA ////////////// -->
+        <div class="column md-2">
+            <button id="btnDownload" class="btn btn-outline-primary mb-3" type="button">
+                <img src="~/Icons/download.svg" width="16" height="16">
+                Descargar
             </button>
-            <button class="btn mb-3" type="button" @(Model.pagina>1?null:"disabled")>
-                <img src="~/Icons/angulo-pequeno-izquierdo.svg" width="16" height="16">
+        </div>
+        <div class="column md-10">
+            <button id="btnMenos10" class="btn mb-2" type="button" @(Model.pagina>9?null:"disabled") valor="@(Model.pagina-10)">
+                <img src="~/Icons/angulo-doble-pequeno-izquierdo.svg" width="16" height="16" valor="@(Model.pagina-10)">
             </button>
-            <a>@Model.pagina de @(Model.cantRows/Model.tamanioPag)</a>
-            <button class="btn mb-3" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>1?null:"disabled")>
-                <img src="~/Icons/angulo-pequeno-derecho.svg" width="16" height="16">
+            <button id="btnMenos1" class="btn mb-2" type="button" @(Model.pagina>0?null:"disabled") valor="@(Model.pagina-1)">
+                <img src="~/Icons/angulo-pequeno-izquierdo.svg" width="16" height="16" valor="@(Model.pagina-1)">
             </button>
-            <button class="btn mb-3" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>10?null:"disabled")>
-                <img src="~/Icons/angulo-doble-pequeno-derecho.svg" width="16" height="16">
+            <a>@(Model.pagina+1) de @(Model.cantRows/Model.tamanioPag+1)</a>
+            <button id="btnMas1" class="btn mb-2" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>0?null:"disabled") valor="@(Model.pagina+1)">
+                <img src="~/Icons/angulo-pequeno-derecho.svg" width="16" height="16" valor="@(Model.pagina+1)">
+            </button>
+            <button id="btnMas10" class="btn mb-2" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>9?null:"disabled") valor="@(Model.pagina+10)">
+                <img src="~/Icons/angulo-doble-pequeno-derecho.svg" width="16" height="16" valor="@(Model.pagina+10)">
             </button>
         </div>
     </div>
@@ -126,9 +129,11 @@
 document.querySelector('#btnAddIPToList').addEventListener("click", addVPNToList);
 document.querySelector('#btnBuscar').addEventListener("click", buscar);
 document.querySelector('#frmBusc').addEventListener("submit", buscar);
-document.querySelector('#btnDer1').addEventListener("click", buscarMas1);
-document.querySelector('#btnDer10').addEventListener("click", buscarMas10);
-
+document.querySelector('#btnMas1').addEventListener("click", buscar);
+document.querySelector('#btnMas10').addEventListener("click", buscar);
+document.querySelector('#btnMenos1').addEventListener("click", buscar);
+document.querySelector('#btnMenos10').addEventListener("click", buscar);
+document.querySelector('#btnDownload').addEventListener("click", download);
 
 function removeIPFromListf(tabIpRow) 
 {
@@ -145,6 +150,11 @@ function buscar(event)
 function addVPNToList(event)
 {
     sendToControl(event, "../Actividad/AddVPN");
+}
+
+function download(event)
+{
+    sendToControl(event, "../Actividad/DownloadCSV");
 }
 
 function sendToControl(event, url)
@@ -179,10 +189,17 @@ function sendToControl(event, url)
 
         // Nuevo para paginacion
         JsonString += `,
-                "pagina": 2,
-                "tamanioPag":10}`;
+                "pagina": ${Number(event.target.getAttribute("valor"))},
+                "tamanioPag":50}`;
+    }
+    else
+    {
+        // Si el formulario de busqueda y la tabla est[an vacias solo se manda el numero de pagina
+        JsonString = `{"pagina": ${Number(event.target.getAttribute("valor"))},
+                "tamanioPag":50}`
     }
 
+    
     sendToControlAjax(JsonString, url);
 
 }
@@ -190,20 +207,20 @@ function sendToControl(event, url)
 function returnFormAsJson()
 {
 
-    let newIp = document.querySelector("#txtIp").value;
+    let newIp = document.querySelector("#txtIp").value.trim();
     let newInicio = document.querySelector("#dtInicio").value;
     let newFin = document.querySelector("#dtFin").value;
     let newTipo = document.querySelector("#selTipo").value;
     var newVPN = "";
 
-    if ((newIp != "") || (newInicio != "") || (newFin != ""))
+    if ((newIp != "") || (newInicio != "") || (newFin != "") || newTipo != 0)
     {
         newVPN =
             `{
                 "Ip": "${newIp}",
                 "Alta": "${newInicio}",
                 "Baja": "${newFin}",
-                "Tipo": 0
+                "Tipo": ${newTipo}
             }`;
     }
     else
@@ -227,10 +244,10 @@ function returnVPNsTableAsJson()
 
     if (tablaRows != null)
     {
-        console.log("TablaRows!=null");
+        
         if (tablaRows.length > 0)
         {
-            console.log("TablaRows length > 0");
+        
 
             for (let i = 0; i < tablaRows.length; i++)
             {
@@ -240,15 +257,15 @@ function returnVPNsTableAsJson()
 
                 let newTabFin = tablaRows[i].querySelectorAll("td")[3].innerHTML.trim();
 
-                let newTabTipo = tablaRows[i].querySelectorAll("td")[4].innerHTML.trim();
+                let newTabTipo = tablaRows[i].querySelectorAll("td")[4].attributes.value.value;
 
-
+        
                 vpnListJson +=
                     `{
                         "Ip": "${newTabIp}",
                         "Alta": "${newTabInicio}",
                         "Baja": "${newTabFin}",
-                        "Tipo": 0
+                        "Tipo": ${newTabTipo}
                     }`;
                 if (i != tablaRows.length - 1)
                     vpnListJson += `,
@@ -261,7 +278,6 @@ function returnVPNsTableAsJson()
         }
     }
 
-    console.log("Tablas as Json: " + vpnListJson);
 
     return vpnListJson;
 }
@@ -270,7 +286,7 @@ function sendToControlAjax(data, url)
 {
 
     var dataType = 'application/json; charset=utf-8';
-    console.log("Data: " + data);
+    
     $.ajax({
         type: 'POST',
         url: url,
@@ -284,18 +300,75 @@ function sendToControlAjax(data, url)
                 $('#searchForm').empty();
                 $('#searchForm').html(result);
             }
-            else
+            else if(url == "../Actividad/DownloadCSV")
             {
-                $('body').empty();
-                $('body').html(result);
+                exportData(result);
             }
+                else
+                {
+                    $('body').empty();
+                    $('body').html(result);
+                }
         },
         error: function (result)
         {
-            console.log("Error");
+            console.log("Error: ");
             console.log(result);
         }
     });
 
 }
+
+function exportData(data){
+    var currentdate = new Date();
+    var JVPNS = data;
+
+    csvContent = "data:text/csv;charset=utf-8,";
+    /* agrega el delimitador de columna como "," y cada row separada por un salto de linea(\r\n) */
+    /* valida ademas si los campos son nulos agrega celda vacia y si las fechas son "indefinidas" tambien es celda vacia */
+    csvContent += "IP,Nombre,Usuario,Dependencia,Direccion,Gabinete,Alta,Baja,Tipo,Inicio,Fin,Destino,Puerto,Protocolo,Segundos,Bytes, Bytes HR\r\n"
+    JVPNS.value.forEach(function(rowArray){
+        rowArray.actividades.forEach(function(actRowArray){
+        
+        row =   (rowArray.ip===null?" ":rowArray.ip)+","+
+                (rowArray.nombre===null?" ":rowArray.nombre)+","+
+                (rowArray.usuario===null?" ":rowArray.usuario)+","+
+                (rowArray.dependencia===null?" ":rowArray.dependencia)+","+
+                (rowArray.direccion===null?" ":rowArray.direccion)+","+
+                (rowArray.gabinete===null?" ":rowArray.gabinete)+","+
+                (rowArray.alta==="0001-01-01T00:00:00"?" ":rowArray.alta)+","+
+                (rowArray.baja==="0001-01-01T00:00:00"?" ":rowArray.baja)+","+
+                (rowArray.tipo===1?"Modem":"Certificado")+","+
+                (actRowArray.inicio===null?" ":actRowArray.inicio)+","+
+                (actRowArray.fin===null?" ":actRowArray.fin)+","+
+                (actRowArray.destino===null?" ":actRowArray.destino)+","+
+                (actRowArray.puerto===null?" ":actRowArray.puerto)+","+
+                (actRowArray.protocolo===null?" ":actRowArray.protocolo)+","+
+                (actRowArray.segundos===null?" ":actRowArray.segundos)+","+
+                (actRowArray.bytes===null?" ":actRowArray.bytes)+","+
+                (actRowArray.bytesh===null?" ":actRowArray.bytesh);
+
+        
+
+        csvContent += row + "\r\n";
+        })
+    });
+
+    /* crea un nodo DOM <a> oculto y le setea el atributo download */
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    
+    link.setAttribute("download", "reporte_actividades_"+currentdate.getDate()+""+
+                (currentdate.getMonth()+1)+""+
+                currentdate.getFullYear()+""+
+                currentdate.getHours()+""+
+                currentdate.getMinutes()+".csv");
+    document.body.appendChild(link);
+    /* descarga el archivo de datos con nombre "reporte_actividades_.csv" */
+    link.click();    
+
+}
+
+
 </script>

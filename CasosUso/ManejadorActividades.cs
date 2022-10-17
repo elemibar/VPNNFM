@@ -19,10 +19,9 @@ namespace CasosUso
         }
 
 
-        public IEnumerable<VPN> BuscarActividad(List<string> ips, string incio, string fin, int pagina, int tamanioPag)
+        public IEnumerable<VPN> BuscarActividad(List<string> ips, string incio, string fin, int pagina, int tamanioPag, VPN.EnumTipo tipo)
         {
-            System.Console.WriteLine("ManAct BusAct");
-            return RepoActividades.findActividad(ips, incio, fin, pagina, tamanioPag);
+            return RepoActividades.findActividad(ips, incio, fin, pagina, tamanioPag, tipo);
         }
 
         public IEnumerable<VPN> TraerTodasActividades()
@@ -32,9 +31,9 @@ namespace CasosUso
 
         }
 
-        public Int64 CantidadActividades(List<string> IPs, string inicio, string fin)
+        public Int64 CantidadActividades(List<string> IPs, string inicio, string fin, VPN.EnumTipo tipo)
         {
-            return RepoActividades.findCantActividad(IPs, inicio, fin);
+            return RepoActividades.findCantActividad(IPs, inicio, fin, tipo);
         }
 
 

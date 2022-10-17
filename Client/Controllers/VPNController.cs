@@ -173,20 +173,16 @@ namespace Client.Controllers
             DateTime? palta = null;
             DateTime? pbaja = null;
 
-            System.Console.WriteLine("VPNControl Edit - alta param: " + alta);
-            System.Console.WriteLine("VPNControl Edit - baja param: " + baja);
 
             if(alta != null && alta.Length > 0 && alta != "01/01/0001 00:00:00")
             {
                 palta = DateTime.Parse(alta, new System.Globalization.CultureInfo("en-US", false));
-                System.Console.WriteLine("VPNControl Edit - parsed alta: " + palta);
             
             }
             
             if(baja != null && baja.Length > 0 && baja != "01/01/0001 00:00:00")
             {
                 pbaja = DateTime.Parse(baja, new System.Globalization.CultureInfo("en-US", false));
-                System.Console.WriteLine("VPNControl Edit - parsed baja: " + pbaja);
             }
             
             VPN vpn = ManejadorVPNs.BuscarPorIdentificadores(IPAddress.Parse(ip), palta, pbaja);
@@ -205,8 +201,6 @@ namespace Client.Controllers
                 if(vpn.Baja != null) vmpvpn.Baja = vpn.Baja.Date.ToString("yyyy-MM-dd");
                 vmpvpn.Tipo = vpn.Tipo;
                 
-                System.Console.WriteLine("ALTA vpn obj: " + vmpvpn.Alta);
-                System.Console.WriteLine("BAJA vpn obj: " + vmpvpn.Baja);
                                 
                 return View(vmpvpn);
             }

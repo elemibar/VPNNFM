@@ -38,7 +38,6 @@ namespace Repositorios
             
             List<VPN> TodasActividadesPorVPN = new List<VPN>();
 
-            System.Console.WriteLine("RepoAct findallAVPN");
 
             /* MOVER A CLASE CONECTIONHANDLER */
             string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
@@ -94,7 +93,6 @@ namespace Repositorios
 
                     if(!(ultimaVPN.Ip == nuevaVPN.Ip && ultimaVPN.Alta == nuevaVPN.Alta && ultimaVPN.Baja == nuevaVPN.Baja))
                     {
-                        System.Console.WriteLine("nueva");
                         ultimaVPN = nuevaVPN;
                         nuevaVPN = new VPN();
                         nuevaVPN.Actividades = new List<Actividad>();
@@ -114,7 +112,7 @@ namespace Repositorios
                 
                     conn.Dispose();
                 //throw;
-                System.Console.WriteLine(ex);
+                
             }
             finally
             {
@@ -133,7 +131,7 @@ namespace Repositorios
             throw new NotImplementedException();
         }
        
-        public Int64 findCantActividad(List<string> IPs, string inicio, string fin)
+        public Int64 findCantActividad(List<string> IPs, string inicio, string fin, VPN.EnumTipo tipo)
         {
             Int64 CantActividadesPorVPN = 0;     
             
@@ -141,12 +139,13 @@ namespace Repositorios
             string paramStringIp = "";
             string paramInicio = "-infinity"; //inicio
             string paramFin = "infinity"; //fin
+            string paramTipo = "";
 
             if(IPs != null && IPs.Count > 0)
             {
                 foreach(string ipstring in IPs)
                 {
-                    System.Console.WriteLine("IPString: " + ipstring);
+                    
                     if(ipstring!=null && ipstring.Length>0) IPaddrs.Add(IPAddress.Parse(ipstring));
                 }
                 
@@ -161,6 +160,17 @@ namespace Repositorios
             if(fin != null && fin != "1/1/0001 00:00:00" && fin != "")
             {
                 paramFin = fin;
+            }
+
+            /* ESTO ERA POR LA INCONSISTENCIA DE LOS DATOS */  
+            
+            if(tipo.GetHashCode()==1)
+            {
+                paramTipo = "192.168.";
+            }
+            else if(tipo.GetHashCode()==2)
+            {
+                paramTipo = "10.";
             }
             
             /* MOVER A CLASE CONECTIONHANDLER */
@@ -177,6 +187,7 @@ namespace Repositorios
                                     {
                                         strSql += "WHERE (ip::text LIKE (@paramStringIp)) ";
                                     }
+                                    if(tipo.GetHashCode()!=0)strSql += "AND (ip::text LIKE (@paramTipo)) ";
                                         strSql += //"AND (ip::text LIKE '192.168.%') " + // Este filtro esta aplicado por la insconsistencia de los datos
                                                   "AND ((alta <= (@paramFin)::timestamp OR alta IS NULL) " +
                                                     "AND (baja >= (@paramInicio)::timestamp OR baja IS NULL))) v, actividad a " +
@@ -201,6 +212,8 @@ namespace Repositorios
             
             cmd.Parameters.AddWithValue("paramInicio", paramInicio);
 
+            cmd.Parameters.AddWithValue("paramTipo", "%"+paramTipo+"%");
+
 
             try 
             {
@@ -217,7 +230,7 @@ namespace Repositorios
                 
                     conn.Dispose();
                 //throw;
-                System.Console.WriteLine(ex);
+                
             }
             finally
             {
@@ -236,7 +249,7 @@ namespace Repositorios
     
 
 
-        public IEnumerable<VPN> findActividad(List<string> IPs, string inicio, string fin, int pagina, int tamanioPag)
+        public IEnumerable<VPN> findActividad(List<string> IPs, string inicio, string fin, int pagina, int tamanioPag, VPN.EnumTipo tipo)
         {
             List<VPN> TodasActividadesPorVPN = new List<VPN>();      
             
@@ -244,12 +257,13 @@ namespace Repositorios
             string paramStringIp = "";
             string paramInicio = "-infinity"; //inicio
             string paramFin = "infinity"; //fin
+            string paramTipo = "";
 
             if(IPs != null && IPs.Count > 0)
             {
                 foreach(string ipstring in IPs)
                 {
-                    System.Console.WriteLine("IPString: " + ipstring);
+                    
                     if(ipstring!=null && ipstring.Length>0) IPaddrs.Add(IPAddress.Parse(ipstring));
                 }
                 
@@ -264,6 +278,17 @@ namespace Repositorios
             if(fin != null && fin != "1/1/0001 00:00:00" && fin != "")
             {
                 paramFin = fin;
+            }
+
+            /* ESTO ERA POR LA INCONSISTENCIA DE LOS DATOS */  
+            
+            if(tipo.GetHashCode()==1)
+            {
+                paramTipo = "192.168.";
+            }
+            else if(tipo.GetHashCode()==2)
+            {
+                paramTipo = "10.";
             }
             
             /* MOVER A CLASE CONECTIONHANDLER */
@@ -280,6 +305,7 @@ namespace Repositorios
                                     {
                                         strSql += "WHERE (ip::text LIKE (@paramStringIp)) ";
                                     }
+                                    if(tipo.GetHashCode()!=0)strSql += "AND (ip::text LIKE (@paramTipo)) ";
                                         strSql += //"AND (ip::text LIKE '192.168.%') " + // Este filtro esta aplicado por la insconsistencia de los datos
                                                   "AND ((alta <= (@paramFin)::timestamp OR alta IS NULL) " +
                                                     "AND (baja >= (@paramInicio)::timestamp OR baja IS NULL))) v, actividad a " +
@@ -296,7 +322,7 @@ namespace Repositorios
 
             cmd.Parameters.AddWithValue("@paramLim", tamanioPag);
             cmd.Parameters.AddWithValue("@paramOffs", (pagina*tamanioPag));
-
+            cmd.Parameters.AddWithValue("paramTipo", "%"+paramTipo+"%");
 
             if(IPaddrs != null && IPaddrs.Count > 0)
                 {
@@ -374,7 +400,7 @@ namespace Repositorios
                 
                     conn.Dispose();
                 //throw;
-                System.Console.WriteLine(ex);
+                
             }
             finally
             {
@@ -385,8 +411,7 @@ namespace Repositorios
                 
             }
 
-            //System.Console.WriteLine("RepoAct findAct ret: " + TodasActividadesPorVPN.Count);
-            //System.Console.WriteLine("RepoAct findAct ret: " + TodasActividadesPorVPN[0].Actividades.Count);
+            
             return TodasActividadesPorVPN;
 
         }
