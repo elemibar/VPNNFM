@@ -45,6 +45,8 @@ namespace Client.Controllers
                     {
                         ViewBag.error = "Una de las direcciones IP ingresadas no es correcta. Verifique los campos.";
                     }
+               
+
                 }
 
                 if(tamanioPag == 0) tamanioPag = 50;
@@ -56,6 +58,8 @@ namespace Client.Controllers
                 
 
                 VMAct.VPNs = ManejadorActividades.BuscarActividad(ips, alta.ToString(), baja.ToString(), pagina, tamanioPag, VPN.EnumTipo.Todos) as List<VPN>;
+
+                VMAct.PVPNs.Add(new VMPlainVPN{Ip=ip, Alta=alta.ToString(), Baja=baja.ToString()});
 
                 return View(VMAct);
             }
