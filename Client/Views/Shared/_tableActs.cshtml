@@ -110,11 +110,11 @@
             <button id="btnMenos1" class="btn mb-2" type="button" @(Model.pagina>0?null:"disabled") valor="@(Model.pagina-1)">
                 <img src="~/Icons/angulo-pequeno-izquierdo.svg" width="16" height="16" valor="@(Model.pagina-1)">
             </button>
-            <a>@(Model.pagina+1) de @(Model.cantRows/(Model.tamanioPag+1))</a>
-            <button id="btnMas1" class="btn mb-2" type="button" @(Model.cantRows/(Model.tamanioPag-Model.pagina)>0?null:"disabled") valor="@(Model.pagina+1)">
+            <a>@(Model.pagina+1) de @((Model.cantRows/(Model.tamanioPag))+1)</a>
+            <button id="btnMas1" class="btn mb-2" type="button" @(((Model.cantRows/Model.tamanioPag)-Model.pagina)>0?null:"disabled") valor="@(Model.pagina+1)">
                 <img src="~/Icons/angulo-pequeno-derecho.svg" width="16" height="16" valor="@(Model.pagina+1)">
             </button>
-            <button id="btnMas10" class="btn mb-2" type="button" @(Model.cantRows/(Model.tamanioPag-Model.pagina)>9?null:"disabled") valor="@(Model.pagina+10)">
+            <button id="btnMas10" class="btn mb-2" type="button" @(((Model.cantRows/Model.tamanioPag)-Model.pagina)>9?null:"disabled") valor="@(Model.pagina+10)">
                 <img src="~/Icons/angulo-doble-pequeno-derecho.svg" width="16" height="16" valor="@(Model.pagina+10)">
             </button>
         </div>

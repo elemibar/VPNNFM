@@ -39,11 +39,12 @@ namespace Repositorios
             
             List<VPN> TodasActividadesPorVPN = new List<VPN>();
 
-
-            /* MOVER A CLASE CONECTIONHANDLER */
+            /*
             string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
             NpgsqlConnection conn = new NpgsqlConnection(conStr);
-            
+            */
+            NpgsqlConnection conn = Conexion.ObtenerConexionBD();
+
             string strSql = "SELECT v.*, a.* " +
                             "FROM vpn v, actividad a " +
                             "WHERE (v.ip = a.ip) AND " +
@@ -57,7 +58,8 @@ namespace Repositorios
             try 
             {
 
-                conn.Open();
+                //conn.Open();
+                Conexion.AbrirConexionBD(conn);
                 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
 
@@ -110,18 +112,12 @@ namespace Repositorios
             {
                 System.Console.WriteLine("Excepcion en Postgre: " + ex);
 
-                if(conn.State != System.Data.ConnectionState.Closed)
-                    conn.Close();
-                
-                conn.Dispose();
+                Conexion.CerrarConexionBD(conn);
                 
             }
             finally
             {
-                if(conn.State != System.Data.ConnectionState.Closed)
-                    conn.Close();
-                
-                conn.Dispose();
+                Conexion.CerrarConexionBD(conn);
                 
             }
 
@@ -175,10 +171,13 @@ namespace Repositorios
                 paramTipo = "10.";
             }
             
-            /* MOVER A CLASE CONECTIONHANDLER */
+            /*
             string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
             NpgsqlConnection conn = new NpgsqlConnection(conStr);
-            
+            */
+
+            NpgsqlConnection conn = Conexion.ObtenerConexionBD();
+
             string strSql = "SELECT COUNT(*)" +
                             "FROM (SELECT ip, usuario, nombre, dependencia, direccion, gabinete, alta, baja " +
                                     "FROM vpn ";
@@ -220,27 +219,20 @@ namespace Repositorios
             try 
             {
 
-                conn.Open();
+                //conn.Open();
+                Conexion.AbrirConexionBD(conn);
                 
                 CantActividadesPorVPN = (Int64)cmd.ExecuteScalar();
                 
             }
             catch(NpgsqlException ex)
             {
-                 if(conn.State != System.Data.ConnectionState.Closed)
-                    conn.Close();
-                
-                    conn.Dispose();
-                //throw;
-                
+                System.Console.WriteLine("Postgre exception: " + ex);
+                Conexion.CerrarConexionBD(conn);                
             }
             finally
             {
-                if(conn.State != System.Data.ConnectionState.Closed)
-                    conn.Close();
-                
-                    conn.Dispose();
-                
+                Conexion.CerrarConexionBD(conn);                
             }
 
             
@@ -290,10 +282,13 @@ namespace Repositorios
                 paramTipo = "10.";
             }
             
-            /* MOVER A CLASE CONECTIONHANDLER */
+            /*
             string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
             NpgsqlConnection conn = new NpgsqlConnection(conStr);
-            
+            */
+
+            NpgsqlConnection conn = Conexion.ObtenerConexionBD();
+
             string strSql = "SELECT v.*, a.* " +
                             "FROM (SELECT ip, usuario, nombre, dependencia, direccion, gabinete, alta, baja " +
                                     "FROM vpn ";
@@ -339,7 +334,8 @@ namespace Repositorios
             try 
             {
 
-                conn.Open();
+                //conn.Open();
+                Conexion.AbrirConexionBD(conn);
                 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
 
@@ -394,20 +390,12 @@ namespace Repositorios
             }
             catch(NpgsqlException ex)
             {
-                 if(conn.State != System.Data.ConnectionState.Closed)
-                    conn.Close();
-                
-                    conn.Dispose();
-                //throw;
-                
+                System.Console.WriteLine("Postgre exception: " + ex);
+                Conexion.CerrarConexionBD(conn);                
             }
             finally
             {
-                if(conn.State != System.Data.ConnectionState.Closed)
-                    conn.Close();
-                
-                    conn.Dispose();
-                
+                Conexion.CerrarConexionBD(conn);
             }
 
             

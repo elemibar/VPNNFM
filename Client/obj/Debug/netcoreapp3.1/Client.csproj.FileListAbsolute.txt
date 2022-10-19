@@ -55,3 +55,11 @@
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/Razor/Views/VPN/Edit.cshtml.g.cs
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/System.Text.Encodings.Web.dll
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/System.Text.Json.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.FileExtensions.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Json.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Physical.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileSystemGlobbing.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll

@@ -42,20 +42,22 @@ namespace Repositorios
             //if(true)
             {
 
-                
+                /*
                 string server = "10.1.1.25";
-                string baseDn = "dc=imcanelones,dc=gub,dc=uy";
-                string usersDn = "ou=users" + "," + baseDn;
+                string baseDn = "dc=imcanelones,dc=gub,dc=uy";*/
+                string usersDn = Conexion.ObtenerStringUsersDnLDAP();
                 string userDn = "";
                 
+
+                //Formato user dn
                 //string userDn = $"uid={username},ou=users,dc=imcanelones,dc=gub,dc=uy";
 
                 try
                 {
-                    using(LdapConnection connection = new LdapConnection{SecureSocketLayer = false})
+                    using(LdapConnection connection = Conexion.ObtenerConexionLDAP())
                     {
                         
-                        connection.Connect(server, LdapConnection.DefaultPort);
+                        Conexion.AbrirConexionBD(connection);
 
                         /* Retornar el DN del usuario para poder hacer bind con usuarios del subtree de Users */
                         userDn = GetUserDN(connection, usersDn, username);
@@ -72,6 +74,7 @@ namespace Repositorios
                 }
                 catch (LdapException ex)
                 {
+                    System.Console.WriteLine("LDAP exception: " + ex);
                     ret = false;
                 }
 
