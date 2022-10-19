@@ -57,6 +57,7 @@ namespace Client.Controllers
 
                 VMAct.cantRows = (int)ManejadorActividades.CantidadActividades(ips, alta.ToString(), baja.ToString(), VPN.EnumTipo.Todos);
                 
+                System.Console.WriteLine("Cantidad de Actividades a mostar (index/get): " + VMAct.cantRows);
 
                 VMAct.VPNs = ManejadorActividades.BuscarActividad(ips, alta.ToString(), baja.ToString(), pagina, tamanioPag, VPN.EnumTipo.Todos) as List<VPN>;
 
@@ -153,7 +154,9 @@ namespace Client.Controllers
                 }
                 
                 VMAct.cantRows = (int)ManejadorActividades.CantidadActividades(lIpsStr, strIni, strFin, tipoLogico);
-                      
+
+                System.Console.WriteLine("Cantidad de Actividades a mostrar (index/post): " + VMAct.cantRows);
+
                 lvpn = ManejadorActividades.BuscarActividad(lIpsStr, strIni, strFin, VMAct.pagina, VMAct.tamanioPag, tipoLogico) as List<VPN>;
 
                 if(lvpn.Count <= 0)
@@ -276,6 +279,7 @@ namespace Client.Controllers
                 
                 VMAct.cantRows = (int)ManejadorActividades.CantidadActividades(lIpsStr, strIni, strFin, tipoLogico);
                           
+                System.Console.WriteLine("Cantidad de Actividades a descargar: " + VMAct.cantRows);
 
                 lvpn = ManejadorActividades.BuscarActividad(lIpsStr, strIni, strFin, 0, VMAct.cantRows, tipoLogico) as List<VPN>;
                 

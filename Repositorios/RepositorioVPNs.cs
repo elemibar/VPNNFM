@@ -12,7 +12,7 @@ namespace Repositorios
 {
     public class RepositorioVPNs : IRepositorioVPNs
     {
-
+        //NI
         public bool Add(VPN obj)
         {
             bool ret = false;
@@ -102,19 +102,19 @@ namespace Repositorios
 
             return ret;
         }
-
+        //NI
         public bool Remove(int id)
         {
 
             throw new NotImplementedException();
 
         }
-
+        //NI
         public bool Update(VPN obj)
         {
             throw new NotImplementedException();
         }
-
+        //I
         public IEnumerable<VPN> FindAll()
         {
             List<VPN> TodasVPNs = new List<VPN>();
@@ -122,8 +122,6 @@ namespace Repositorios
             string conStr = "Host=10.1.1.64;Username=netflow;Password=lajirafaloca;Database=netflow";
             NpgsqlConnection conn = new NpgsqlConnection(conStr);
             
-            // Filtro para traer solo los modems
-            //string strSql = "SELECT * FROM vpn WHERE ip::text LIKE '192.168.%'";
             string strSql = "SELECT * FROM vpn";
             NpgsqlCommand cmd = new NpgsqlCommand(strSql, conn);
            
@@ -157,39 +155,33 @@ namespace Repositorios
             }
             catch(NpgsqlException ex)
             {
-                 //if(conn.State != ConnectionState.Closed)
-                    //conn.Close();
+                System.Console.WriteLine("Postgre exception: " + ex);
                 
-                    //conn.Dispose();
-                //throw;
+                if(conn.State != System.Data.ConnectionState.Closed)
+                    conn.Close();
                 
+                conn.Dispose();
+
             }
             finally
             {
-                //if(conn.State != ConnectionState.Closed)
+                
+                if(conn.State != System.Data.ConnectionState.Closed)
                     conn.Close();
                 
-                    conn.Dispose();
+                conn.Dispose();
                 
             }
 
             return TodasVPNs;
         }
-
+        //NI
         public VPN FindById(int id)
         {
             throw new NotImplementedException();
         }
-
-
-        public IEnumerable<VPN> findActiveVPNsOnDates(DateTime start, DateTime end)
-        {
-            
-            throw new NotImplementedException();
-
-        }
-        
-
+       
+        //I
         public IEnumerable<VPN> findVPN(List<string> IPs, string nombre, string alta, string baja, VPN.EnumTipo tipo)
         {
 
@@ -221,7 +213,7 @@ namespace Repositorios
                 paramBaja = baja;
             }
 
-             /* ESTO ES POR LA INCONSISTENCIA DE LOS DATOS */  
+            
             
             if(tipo.GetHashCode()==1)
             {
@@ -247,10 +239,10 @@ namespace Repositorios
                                 }
                                if(tipo.GetHashCode()!=0)strSql += "AND (ip::text LIKE (@paramTipo)) ";
             if(nombre != null && nombre.Length > 0)
-                strSql += "AND (nombre LIKE (@paramNombre)) ";
+                strSql += "AND (nombre ILIKE (@paramNombre) OR usuario ILIKE (@paramNombre)) ";
             else
             {
-                strSql += "AND ( (nombre LIKE (@paramNombre)) OR (nombre IS NULL) ) ";
+                strSql += "AND ( (nombre ILIKE (@paramNombre)) OR (nombre IS NULL) OR usuario ILIKE (@paramNombre)) ";
             }
 
             strSql += "AND ((alta <= (@paramBaja)::timestamp OR alta IS NULL) AND " +
@@ -260,7 +252,6 @@ namespace Repositorios
             NpgsqlCommand cmd = new NpgsqlCommand(strSql, conn);
 
             if(IPs != null && IPs.Count > 0)
-                //cmd.Parameters.AddWithValue("paramIp", paramIp);
                 cmd.Parameters.Add("@paramLIp", NpgsqlDbType.Array|NpgsqlDbType.Inet).Value = IPAddrs;
             else
             {
@@ -301,20 +292,20 @@ namespace Repositorios
             }
             catch(NpgsqlException ex)
             {
-                 //if(conn.State != ConnectionState.Closed)
-                    //conn.Close();
+                System.Console.WriteLine("Postgre exception: " + ex);
+
+                if(conn.State != System.Data.ConnectionState.Closed)
+                    conn.Close();
                 
-                    //conn.Dispose();
-                //throw;
-                
+                conn.Dispose();
+
             }
             finally
             {
-                //if(conn.State != ConnectionState.Closed)
+                if(conn.State != System.Data.ConnectionState.Closed)
                     conn.Close();
                 
-                    conn.Dispose();
-                
+                conn.Dispose();   
             }
 
             return TodasVPNs;
@@ -322,7 +313,7 @@ namespace Repositorios
 
         }
 
-
+        //I
         public bool isActive(IPAddress ip)
         {
             bool ret = false;
@@ -354,26 +345,26 @@ namespace Repositorios
             }
             catch(NpgsqlException ex)
             {
-                 //if(conn.State != ConnectionState.Closed)
-                    //conn.Close();
+                System.Console.WriteLine("Postgre exception: " + ex);
                 
-                    //conn.Dispose();
-                
-                throw;
-            }
-            finally
-            {
-                //if(conn.State != ConnectionState.Closed)
+                if(conn.State != System.Data.ConnectionState.Closed)
                     conn.Close();
                 
-                    conn.Dispose();
+                conn.Dispose();
+            }
+            finally
+            {                
+                if(conn.State != System.Data.ConnectionState.Closed)
+                    conn.Close();
                 
+                conn.Dispose();               
             }
 
 
             return ret;
         }
 
+        //I
         // Se usa para editar 
         public VPN findByIds(IPAddress ip, DateTime? alta, DateTime? baja)
         {
@@ -422,20 +413,18 @@ namespace Repositorios
             }
             catch(NpgsqlException ex)
             {
-                 //if(conn.State != ConnectionState.Closed)
-                    //conn.Close();
+                System.Console.WriteLine("Postgre exception: " + ex);
+                if(conn.State != System.Data.ConnectionState.Closed)
+                    conn.Close();
                 
-                    //conn.Dispose();
-                
-                throw;
+                conn.Dispose();
             }
             finally
             {
-                //if(conn.State != ConnectionState.Closed)
+                if(conn.State != System.Data.ConnectionState.Closed)
                     conn.Close();
                 
-                    conn.Dispose();
-                
+                conn.Dispose();
             }
 
 

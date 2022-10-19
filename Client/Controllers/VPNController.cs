@@ -30,6 +30,7 @@ namespace Client.Controllers
                 ViewModelVPN vmvpn = new ViewModelVPN();
                 vmvpn.VPNs = ManejadorVPNs.TraerTodasVPN();
 
+                System.Console.WriteLine("Cantidad de VPNs a mostrar(index/get): " + vmvpn.VPNs.Count());
 
                 return View(vmvpn);
             }
@@ -60,6 +61,8 @@ namespace Client.Controllers
                 }
 
                 vmvpn.VPNs = ManejadorVPNs.BuscarVPN(IpsList, vmvpn.VPN.Nombre, vmvpn.VPN.Alta.ToString(), vmvpn.VPN.Baja.ToString(), vmvpn.VPN.Tipo);
+
+                System.Console.WriteLine("Cantidad de VPNs a mostrar(index/post): " + vmvpn.VPNs.Count());
 
                 if (vmvpn.VPNs == null || vmvpn.VPNs.Count() == 0)
                 {
@@ -186,6 +189,7 @@ namespace Client.Controllers
             }
             
             VPN vpn = ManejadorVPNs.BuscarPorIdentificadores(IPAddress.Parse(ip), palta, pbaja);
+                                    
             if(vpn != null)
             {
              

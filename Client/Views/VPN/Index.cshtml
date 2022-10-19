@@ -172,6 +172,7 @@ function exportData(){
     var JVPNS = @Html.Raw(Json.Serialize(@Model.VPNs));
     
     csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "IP,Usuario,Nombre,Dependencia,Direccion,Gabinete,Alta,Baja,Tipo\r\n";
     /* agrega el delimitador de columna como "," y cada row separada por un salto de linea(\r\n) */
     /* valida ademas si los campos son nulos agrega celda vacia y si las fechas son "indefinidas" tambien es celda vacia */
     JVPNS.forEach(function(rowArray){

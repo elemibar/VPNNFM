@@ -11,28 +11,29 @@ namespace Repositorios
 {
     public class RepositorioActividades : IRepositorioActividades
     {
-
+        //NI
         public bool Add(Actividad obj)
         {
             throw new NotImplementedException();
         }
-
+        //NI
         public bool Remove(int id)
         {
 
             throw new NotImplementedException();
 
         }
-
+        //NI
         public bool Update(Actividad obj)
         {
             throw new NotImplementedException();
         }
-
+        //NI
         public IEnumerable<Actividad> FindAll()
         {
             throw new NotImplementedException();
         }
+        //I
         public IEnumerable<VPN> FindAllAVPN()
         {
             
@@ -107,11 +108,12 @@ namespace Repositorios
             }
             catch(NpgsqlException ex)
             {
-                 if(conn.State != System.Data.ConnectionState.Closed)
+                System.Console.WriteLine("Excepcion en Postgre: " + ex);
+
+                if(conn.State != System.Data.ConnectionState.Closed)
                     conn.Close();
                 
-                    conn.Dispose();
-                //throw;
+                conn.Dispose();
                 
             }
             finally
@@ -119,18 +121,18 @@ namespace Repositorios
                 if(conn.State != System.Data.ConnectionState.Closed)
                     conn.Close();
                 
-                    conn.Dispose();
+                conn.Dispose();
                 
             }
 
             return TodasActividadesPorVPN;
         }
-
+        //NI
         public Actividad FindById(int id)
         {
             throw new NotImplementedException();
         }
-       
+        //I
         public Int64 findCantActividad(List<string> IPs, string inicio, string fin, VPN.EnumTipo tipo)
         {
             Int64 CantActividadesPorVPN = 0;     
@@ -245,10 +247,7 @@ namespace Repositorios
             return CantActividadesPorVPN;
 
         }
-
-    
-
-
+        //I
         public IEnumerable<VPN> findActividad(List<string> IPs, string inicio, string fin, int pagina, int tamanioPag, VPN.EnumTipo tipo)
         {
             List<VPN> TodasActividadesPorVPN = new List<VPN>();      
@@ -280,7 +279,7 @@ namespace Repositorios
                 paramFin = fin;
             }
 
-            /* ESTO ERA POR LA INCONSISTENCIA DE LOS DATOS */  
+
             
             if(tipo.GetHashCode()==1)
             {
