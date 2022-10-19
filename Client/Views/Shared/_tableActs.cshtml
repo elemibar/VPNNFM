@@ -59,26 +59,26 @@
  
            <!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
  
-        <table class="table table-striped col" id="tabVpns">
+        <table class="table table-striped " id="tabVpns">
             <tbody>
                 @{
                     int i = 0;
                     foreach(VMPlainVPN v in Model.PVPNs)
                     {
                         <tr>
-                            <td>
+                            <td class="col-sm-1">
                                 <button type="button" id="removeIPFromList" value="-" class="btn btn-outline-danger btn-circle btn-sm text-right" onclick="javascript:removeIPFromListf(this); return false;">-</button>
                             </td>
-                            <td>
+                            <td class="col-sm-3">
                                 @Html.DisplayFor(x => v.Ip)
                             </td>
-                            <td>
+                            <td class="col-sm-3">
                                 @Html.DisplayFor(x => v.Alta)
                             </td>
-                            <td>
+                            <td class="col-sm-3">
                                 @Html.DisplayFor(x => v.Baja)
                             </td>
-                            <td value="@v.Tipo.GetHashCode()">
+                            <td class="col-sm-2" value="@v.Tipo.GetHashCode()">
                                 @Html.DisplayFor(x => v.Tipo)
                             </td>
                         </tr>
@@ -95,7 +95,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- //////////// BOTON DESACARGA ////////////// -->
-        <div class="column md-2 justify-content-left mx-3">
+        <div class="col md-3">
             <button id="btnDownload" class="btn btn-outline-primary mb-3" type="button">
                 <img src="~/Icons/download.svg" width="16" height="16">
                 Descargar
@@ -103,18 +103,18 @@
         </div>
         <!-- //////////////////////////////////////////////// -->
         <!-- //////////// CONTROLES PAGINACION ////////////// -->
-        <div class="column md-10 justify-content-center mx-3">
+        <div class="col md-9">
             <button id="btnMenos10" class="btn mb-2" type="button" @(Model.pagina>9?null:"disabled") valor="@(Model.pagina-10)">
                 <img src="~/Icons/angulo-doble-pequeno-izquierdo.svg" width="16" height="16" valor="@(Model.pagina-10)">
             </button>
             <button id="btnMenos1" class="btn mb-2" type="button" @(Model.pagina>0?null:"disabled") valor="@(Model.pagina-1)">
                 <img src="~/Icons/angulo-pequeno-izquierdo.svg" width="16" height="16" valor="@(Model.pagina-1)">
             </button>
-            <a>@(Model.pagina+1) de @(Model.cantRows/Model.tamanioPag+1)</a>
-            <button id="btnMas1" class="btn mb-2" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>0?null:"disabled") valor="@(Model.pagina+1)">
+            <a>@(Model.pagina+1) de @(Model.cantRows/(Model.tamanioPag+1))</a>
+            <button id="btnMas1" class="btn mb-2" type="button" @(Model.cantRows/(Model.tamanioPag-Model.pagina)>0?null:"disabled") valor="@(Model.pagina+1)">
                 <img src="~/Icons/angulo-pequeno-derecho.svg" width="16" height="16" valor="@(Model.pagina+1)">
             </button>
-            <button id="btnMas10" class="btn mb-2" type="button" @(Model.cantRows/Model.tamanioPag-Model.pagina>9?null:"disabled") valor="@(Model.pagina+10)">
+            <button id="btnMas10" class="btn mb-2" type="button" @(Model.cantRows/(Model.tamanioPag-Model.pagina)>9?null:"disabled") valor="@(Model.pagina+10)">
                 <img src="~/Icons/angulo-doble-pequeno-derecho.svg" width="16" height="16" valor="@(Model.pagina+10)">
             </button>
         </div>

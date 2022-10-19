@@ -27,10 +27,11 @@ namespace Client.Controllers
         
         public IActionResult Index(string ip, DateTime alta, DateTime baja, int pagina, int tamanioPag)
         {
-            
 
             if(HttpContext.Session.GetString("mail") != null)
             {
+
+            
                 VMActividad VMAct = new VMActividad();
                 List<string> ips = new List<string>();
 
@@ -62,6 +63,7 @@ namespace Client.Controllers
                 VMAct.PVPNs.Add(new VMPlainVPN{Ip=ip, Alta=alta.ToString(), Baja=baja.ToString()});
 
                 return View(VMAct);
+                
             }
             return RedirectToAction("Index", "Home");
         }
@@ -169,7 +171,7 @@ namespace Client.Controllers
 
 
         [HttpPost]
-        public ActionResult AddVPN([FromBody]VMActividad vma) //
+        public ActionResult AddVPN([FromBody]VMActividad vma)
         {   
             if(HttpContext.Session.GetString("mail") != null)
             {

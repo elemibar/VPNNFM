@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Dominio.EntidadesNegocio;
 using Dominio.IRepositorios;
 using Novell.Directory.Ldap;
+using Novell.Directory.Ldap.Utilclass;
+using System.ComponentModel;
 
 namespace Repositorios
 {
@@ -35,20 +37,29 @@ namespace Repositorios
             
             bool ret = false;
 
-            // Restriccion para que solo inicien sesion ciertos usuarios de ATIC 
+            // Restriccion (HARDCODED) para que solo inicien sesion ciertos usuarios de ATIC 
             if(username=="emilio.barcelona"||username=="mitchel.quilici"||username=="andrea.carrion"||username=="patricia.bentancur")
+            //if(true)
             {
 
                 
                 string server = "10.1.1.25";
-                string userDn = $"uid={username},ou=users,dc=imcanelones,dc=gub,dc=uy";
+                string baseDn = "dc=imcanelones,dc=gub,dc=uy";
+                string usersDn = "ou=users" + "," + baseDn;
+                string userDn = "";
                 
+                //string userDn = $"uid={username},ou=users,dc=imcanelones,dc=gub,dc=uy";
+
                 try
                 {
                     using(LdapConnection connection = new LdapConnection{SecureSocketLayer = false})
                     {
                         
                         connection.Connect(server, LdapConnection.DefaultPort);
+
+                        /* Retornar el DN del usuario para poder hacer bind con usuarios del subtree de Users */
+                        userDn = GetUserDN(connection, usersDn, username);
+
 
                         connection.Bind(LdapConnection.LdapV3, userDn, password);
                         
@@ -77,5 +88,57 @@ namespace Repositorios
         {
             throw new NotImplementedException();
         }
+
+        private string GetUserDN(LdapConnection connection, string searchBase, string user)
+        {
+            
+            
+            string retDn = "";
+            
+            try
+            {
+    
+                var constraints = new LdapSearchConstraints();
+                constraints.SetControls(new LdapControl[]{});
+
+                ILdapSearchResults searchResults = connection.Search(
+                    searchBase,
+                    LdapConnection.ScopeSub,
+                    $"(uid={user})",
+                    null,
+                    false,
+                    constraints
+                );
+
+
+                if (searchResults != null && searchResults.HasMore())//&& ((cntTotal == null) || (cntRead < cntTotal)))
+                {
+                                                
+                    //LdapEntry result = searchResults.Next();
+
+                    try
+                    {
+                        LdapEntry entry = searchResults.Next();
+                        System.Console.WriteLine("DN: " + entry.Dn);
+                        retDn = entry.Dn;
+                            
+                    }
+                    catch (LdapReferralException ex)
+                    {
+                        System.Console.WriteLine("Ldap exception: " + ex);
+                    }
+                }    
+                
+            }
+            catch (LdapException ex)
+            {
+                System.Console.WriteLine("Ldap exception: " + ex);
+            }
+            
+
+
+            return retDn;   
+        }
+
     }
 }
