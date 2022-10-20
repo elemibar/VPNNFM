@@ -80,8 +80,10 @@ namespace Client.Controllers
                 
                 VMActividad VMAct = new VMActividad();
 
-                DateTime maxD = DateTime.Parse("01/01/0001");
-                DateTime minD = DateTime.Parse("01/01/9999");
+                //DateTime maxD = DateTime.Parse("01/01/0001"); 
+                DateTime maxD = Convert.ToDateTime("01/01/0001");
+                //DateTime minD = DateTime.Parse("01/01/9999");
+                DateTime minD = Convert.ToDateTime("01/01/9999");
                 String strIni = "";
                 String strFin = "";
                 VPN.EnumTipo tipoLogico = VPN.EnumTipo.Todos;
@@ -105,15 +107,15 @@ namespace Client.Controllers
                                 ViewBag.error = "Una de las direcciones IP ingresadas no es correcta. Verifique los campos.";
                             }
                         }
-                        if(v.Baja != "" && DateTime.Parse(v.Baja) > maxD)
+                        if(v.Baja != "" && Convert.ToDateTime(v.Baja) > maxD)
                         {
-                            maxD=DateTime.Parse(v.Baja);
+                            maxD=Convert.ToDateTime(v.Baja);
                             strFin = v.Baja;
                         }
 
-                        if(v.Alta != "" && DateTime.Parse(v.Alta) < minD)
+                        if(v.Alta != "" && Convert.ToDateTime(v.Alta) < minD)
                         {
-                            minD=DateTime.Parse(v.Alta);
+                            minD=Convert.ToDateTime(v.Alta);
                             strIni = v.Alta;
                         }
 
@@ -141,6 +143,13 @@ namespace Client.Controllers
 
                     VMAct.pagina = vma.pagina;
                     VMAct.tamanioPag = vma.tamanioPag;
+
+                    foreach(VMPlainVPN vmpvpn in vma.PVPNs)
+                        {
+                            DateTime aux;
+                            if(DateTime.TryParse(vmpvpn.Alta, out aux)) vmpvpn.Alta = Convert.ToDateTime(vmpvpn.Alta).ToString();
+                            if(DateTime.TryParse(vmpvpn.Baja, out aux)) vmpvpn.Baja = Convert.ToDateTime(vmpvpn.Baja).ToString();
+                        }
 
                     VMAct.PVPNs = vma.PVPNs;
 
@@ -183,7 +192,16 @@ namespace Client.Controllers
                     
                     if(vma.PVPNs.Count > 0)
                     {
-                        
+                        //TESTING
+                        foreach(VMPlainVPN vmpvpn in vma.PVPNs)
+                        {
+                            DateTime aux;
+                            if(DateTime.TryParse(vmpvpn.Alta, out aux)) vmpvpn.Alta = Convert.ToDateTime(vmpvpn.Alta).ToString();
+                            if(DateTime.TryParse(vmpvpn.Baja, out aux)) vmpvpn.Baja = Convert.ToDateTime(vmpvpn.Baja).ToString();
+                        }
+
+
+
                         acts = vma;
                         return PartialView("_tableActs", acts);
                     }

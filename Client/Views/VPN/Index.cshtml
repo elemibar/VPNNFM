@@ -8,7 +8,7 @@
 <h1>VPNs</h1>
 
 <p>
-    <a asp-action="Create">Agregar VPN</a>
+    <!-- <a asp-action="Create">Agregar VPN</a> -->
 </p>
 
 <!-- <p class="small text-danger">Debido a la inconsistencia de los datos en la BD sólo se muestra la actividad de los modems.</p> -->
@@ -138,13 +138,13 @@
                     @Html.DisplayFor(modelItem => item.Gabinete)
                 </td>
                 <td>
-                    @if(item.Alta != null && item.Alta.ToString() != "1/1/0001 00:00:00")
+                    @if(item.Alta != null && DateTime.Compare(item.Alta, Convert.ToDateTime("01/01/0001")) != 0)
                     {
                         @item.Alta.ToString()
                     }
                 </td>
                 <td>
-                    @if(item.Baja != null && item.Baja.ToString() != "1/1/0001 00:00:00")
+                    @if(item.Baja != null && DateTime.Compare(item.Baja, Convert.ToDateTime("01/01/0001")) != 0)
                     {
                         @item.Baja.ToString()
                     }
@@ -154,7 +154,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Actividad", "Index", "Actividad", new { ip=item.Ip, alta=item.Alta, baja=item.Baja, pagina=0, tamanioPag=50})
-                    @Html.ActionLink("Modificar", "Edit", "VPN", new { ip=item.Ip, alta=item.Alta, baja=item.Baja })
+                    <!-- @Html.ActionLink("Modificar", "Edit", "VPN", new { ip=item.Ip, alta=item.Alta, baja=item.Baja }) -->
                 </td>
             </tr>
         }

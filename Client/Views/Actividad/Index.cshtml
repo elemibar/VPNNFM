@@ -104,10 +104,16 @@
                                     @Html.DisplayFor(modelItem => item.Gabinete)
                                 </td>
                                 <td>
-                                    @item.Alta.ToString()
+                                    @if(item.Alta != null && DateTime.Compare(item.Alta, Convert.ToDateTime("01/01/0001")) != 0)
+                                    {
+                                        @item.Alta.ToString()
+                                    }
                                 </td>
                                 <td>
-                                    @item.Baja.ToString()
+                                    @if(item.Baja != null && DateTime.Compare(item.Baja, Convert.ToDateTime("01/01/0001")) != 0)
+                                    {
+                                        @item.Baja.ToString()
+                                    }
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Tipo)

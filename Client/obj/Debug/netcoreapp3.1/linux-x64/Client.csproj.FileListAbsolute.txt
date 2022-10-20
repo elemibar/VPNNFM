@@ -366,3 +366,9 @@
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/linux-x64/Client.dll
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/linux-x64/Client.pdb
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/obj/Debug/netcoreapp3.1/linux-x64/Client.genruntimeconfig.cache
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/linux-x64/NetFlowManager/web.config
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/linux-x64/NetFlowManager/appsettings.Development.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/linux-x64/NetFlowManager/appsettings.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/linux-x64/NetFlowManager/Client.deps.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/linux-x64/NetFlowManager/Client.runtimeconfig.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/linux-x64/NetFlowManager/mono_crash.2207df118e.0.json

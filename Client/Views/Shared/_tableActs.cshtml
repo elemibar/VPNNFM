@@ -57,7 +57,7 @@
         </form>
             
  
-           <!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
+        <!-- //////////////// LISTADO de Datos de busqueda (VPNs) ///////////////////////////// -->
  
         <table class="table table-striped " id="tabVpns">
             <tbody>
@@ -73,10 +73,16 @@
                                 @Html.DisplayFor(x => v.Ip)
                             </td>
                             <td class="col-sm-3">
-                                @Html.DisplayFor(x => v.Alta)
+                                @if(v.Alta != null && v.Alta != "" && DateTime.Compare(Convert.ToDateTime(v.Alta), Convert.ToDateTime("01/01/0001")) != 0)
+                                {
+                                    @Html.DisplayFor(x => v.Alta)
+                                }
                             </td>
                             <td class="col-sm-3">
-                                @Html.DisplayFor(x => v.Baja)
+                                @if(v.Baja != null && v.Baja != "" && DateTime.Compare(Convert.ToDateTime(v.Baja), Convert.ToDateTime("01/01/0001")) != 0)
+                                {
+                                    @Html.DisplayFor(x => v.Baja)
+                                }
                             </td>
                             <td class="col-sm-2" value="@v.Tipo.GetHashCode()">
                                 @Html.DisplayFor(x => v.Tipo)

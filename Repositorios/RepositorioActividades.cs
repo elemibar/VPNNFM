@@ -261,12 +261,12 @@ namespace Repositorios
             }
          
             
-            if(inicio != null && inicio != "1/1/0001 00:00:00" && inicio != "")
+            if(inicio != null && inicio != "1/1/0001 00:00:00" && inicio != "" && DateTime.Compare(Convert.ToDateTime(inicio), Convert.ToDateTime("01/01/0001")) != 0)
             {
                 paramInicio = inicio;
             }
             
-            if(fin != null && fin != "1/1/0001 00:00:00" && fin != "")
+            if(fin != null && fin != "1/1/0001 00:00:00" && fin != "" && DateTime.Compare(Convert.ToDateTime(fin), Convert.ToDateTime("01/01/0001")) != 0)
             {
                 paramFin = fin;
             }

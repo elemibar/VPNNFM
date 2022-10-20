@@ -3,7 +3,6 @@ VALIDACIONES
     - Validar el resto de los campos en los formularios de búsqueda.
 
 ESTRUCTURA
-    - Mover los strings y configuración de conexión a una clase conexión.
     - Mover jss a archivos independientes.
 
 FUNCIONALIDADES

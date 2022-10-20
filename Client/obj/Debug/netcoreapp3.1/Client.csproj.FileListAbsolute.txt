@@ -63,3 +63,15 @@
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Physical.dll
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileSystemGlobbing.dll
 /home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/NetFlowManager/web.config
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/web.config
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/appsettings.Development.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/appsettings.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/Client.deps.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/Client.runtimeconfig.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/mono_crash.2207df118e.0.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/NetFlowManager/appsettings.Development.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/NetFlowManager/appsettings.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/NetFlowManager/Client.deps.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/NetFlowManager/Client.runtimeconfig.json
+/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/bin/Debug/netcoreapp3.1/NetFlowManager/NetFlowManager/mono_crash.2207df118e.0.json
