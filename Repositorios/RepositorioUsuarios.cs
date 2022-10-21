@@ -6,6 +6,8 @@ using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Utilclass;
 using System.ComponentModel;
 
+using System.IO;//.FileStream;
+
 namespace Repositorios
 {
     public class RepositorioUsuarios : IRepositorioUsuarios
@@ -37,10 +39,14 @@ namespace Repositorios
             
             bool ret = false;
 
-            // Restriccion (HARDCODED) para que solo inicien sesion ciertos usuarios de ATIC 
-            if(username=="emilio.barcelona"||username=="mitchel.quilici"||username=="andrea.carrion"||username=="patricia.bentancur")
-            //if(true)
+            // Restriccion (HARDCODED) para que solo inicien sesion ciertos usuarios de ATIC
+
+            if(getUserGroups(username))
             {
+                
+/*          if(username=="emilio.barcelona"||username=="mitchel.quilici"||username=="andrea.carrion"
+                ||username=="patricia.bentancur" || username=="lisandro.legniani")
+            {*/
 
                 /*
                 string server = "10.1.1.25";
@@ -142,6 +148,35 @@ namespace Repositorios
 
             return retDn;   
         }
+
+        public bool getUserGroups(string username)
+        {
+            bool ret = false;
+
+            try
+            {
+                FileStream fileStream = new FileStream("groups", FileMode.Open);
+                using (StreamReader reader = new StreamReader(fileStream))
+                {
+                    
+                    string line;
+                    while((line = reader.ReadLine()) != null)
+                    {
+                        if(!ret)ret = line.StartsWith(username);
+                    }
+
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("File read exception: " + ex);
+            }
+
+
+            return ret;
+
+        }
+
 
     }
 }
