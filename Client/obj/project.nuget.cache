@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Y/AWdUbGYMae46mNuHTr8dCATwcOZiNLkA1ImYq+7yLIZqSN9BezHcPW4X1p1w/1O/J4/oG/rT5cQC2hzSaClg==",
+  "dgSpecHash": "L13rZBKz0wc9ibrt/roKIv0LtqdL9/St2jXa3vwCrDxSafd+iNMoAnqtCYYcSBV4fSJg17gfHeKws9pXEF8KhQ==",
   "success": true,
   "projectFilePath": "/home/ebarcelona/Proyectos/NET.CORE/VPNNFM/Client/Client.csproj",
   "expectedPackageFiles": [
@@ -19,7 +19,9 @@
     "/home/ebarcelona/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "/home/ebarcelona/.nuget/packages/system.text.encodings.web/6.0.0/system.text.encodings.web.6.0.0.nupkg.sha512",
-    "/home/ebarcelona/.nuget/packages/system.text.json/6.0.6/system.text.json.6.0.6.nupkg.sha512"
+    "/home/ebarcelona/.nuget/packages/system.text.json/6.0.6/system.text.json.6.0.6.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/microsoft.netcore.app.runtime.linux-x64/3.1.14/microsoft.netcore.app.runtime.linux-x64.3.1.14.nupkg.sha512",
+    "/home/ebarcelona/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-x64/3.1.14/microsoft.aspnetcore.app.runtime.linux-x64.3.1.14.nupkg.sha512"
   ],
   "logs": []
 }

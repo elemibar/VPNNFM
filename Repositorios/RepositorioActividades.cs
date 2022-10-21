@@ -250,6 +250,8 @@ namespace Repositorios
             string paramFin = "infinity"; //fin
             string paramTipo = "";
 
+            System.Console.WriteLine("REPOACT/findAct: inicio: " + inicio + " fin: " + fin );
+
             if(IPs != null && IPs.Count > 0)
             {
                 foreach(string ipstring in IPs)

@@ -7,6 +7,12 @@ using Dominio.IRepositorios;
 using CasosUso;
 using Repositorios;
 
+using Microsoft.AspNetCore.Localization;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Client
 {
     public class Startup
@@ -48,6 +54,34 @@ namespace Client
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            // CULTURE CORRECTION (Fecha y hora)
+
+            var supportedCultures = new List<CultureInfo>{};
+            var es = new CultureInfo("es-ES");
+            es.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            es.DateTimeFormat.DateSeparator = "/";
+            supportedCultures.Add(es);
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures,
+            });
+            app.Use(async(context, next) =>
+            {
+                context.Response.Cookies.Append(
+                    CookieRequestCultureProvider.DefaultCookieName,
+                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("es-ES"))
+                );
+                await next();
+            });
+            
+            ////////////////////////////////////
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
